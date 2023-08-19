@@ -1,4 +1,4 @@
-#include "bst.h"
+#include "../src/include/bst.h"
 #include <iostream>
 
 using namespace std;
