@@ -1,130 +1,49 @@
 #include "bst.h"
 #include <iostream>
 #include <stdexcept>
+
 using namespace std;
 
-template <typename T>
-BST<T>::Node::Node() : data({}), left(nullptr), right(nullptr) {}
 
 template <typename T>
-BST<T>::Node::Node(const T& value) : data(value), left(nullptr), right(nullptr) {}
+bst<T>::Node::Node() : data({}), left(nullptr), right(nullptr) {}
 
 template <typename T>
-BST<T>::BST() : count(0), root(nullptr) {}
+bst<T>::Node::Node(const T & value) : data(value), left(nullptr), right(nullptr) {}
 
 template <typename T>
-BST<T>::~BST() {}
+bst<T>::bst() : count(0), root(nullptr) {}
+
+template <typename T>
+bst<T>::~bst() {}
 
 
 template <typename T>
-bool BST<T>::insert_helper(unique_ptr<typename BST<T>::Node>& node, const T& value) {
+bool bst<T>::insert_helper(unique_ptr<typename bst<T>::Node> & node, const T & value) {
   try {
     if(!node) {
-      node = make_unique<typename BST<T>::Node>(value);
+      node = make_unique<typename bst<T>::Node>(value);
       return true;
     }
 
-    if(value < node->data) {
+    if(value < (node->data)) {
       return insert_helper(node->left, value);
-    } else if (value > node->data) {
+    }
+    else if (value > (node->data)) {
       return insert_helper(node->right, value);
-    } else {
+    }
+    else {
       return false;
     }
-  } catch(const bad_alloc& e) {
-      cerr << "Memory allocation failed: " << e.what() << endl;
-      return false;
   }
-}
-
-template <typename T>
-bool BST<T>::insert(const T& value) {
-  try {
-    if (insert_helper(root, value)) {
-      count++;
-      return true;
-    }
+  catch(const bad_alloc & e) {
+    cerr << "Memory allocation failed: " << e.what() << endl;
     return false;
-  } catch (const bad_alloc& e) {
-      cerr << "Memory allocation failed: " << e.what() << endl;
-      return false;
-  }
-}
-/* -001
-// in-order traversal
-template <typename T>
-void BST<T>::traverse_helper(unique_ptr<typename BST<T>::Node>& node, void (*callback)(const T& value)) {
-  if (node) { //if nullptr prnit --> empty tree
-    try {
-      traverse_helper(node->left.get(), callback);
-      callback(node->data);
-      traverse_helper(node->right.get(), callback);
-    }
-    catch (const exception& e) {
-      cerr << "Exception occured : " << e.what() << endl;
-    }
-  }
-}
-*/
-/*
-template <typename T>
-void BST<T>::traverse_helper(unique_ptr<typename BST<T>::Node>& node, void (*callback)(const T& value)) {
-  if (node) { //if nullptr prnit --> empty tree
-    try {
-      traverse_helper(node->left.get(), callback);
-      callback(node->data);
-      traverse_helper(node->right.get(), callback);
-    }
-    catch (const exception& e) {
-      cerr << "Exception occured : " << e.what() << endl;
-    }
-  }
-}
-*/
-/* -001
-template <typename T>
-void BST<T>::traverse(void (*callback)(const T& value)) const {
-  try {
-    traverse_helper(root.get(), callback);
-  }
-  catch (const exception& e) {
-    cerr << "Exception occured : " << e.what() << endl;
-  }
-}
-*/
-/*
-template <typename T>
-void BST<T>::print_bst(const T& value) const {
-  try {
-    cout << value << " ";
-  }
-  catch (const exception& e) {
-    cerr << "Exception occured : " << e.what() << endl;
-  }
-}
-*/
-template <typename T>
-//void BST<T>::print_bst_helper(unique_ptr<BST<T>::Node>& node) const {
-void BST<T>::print_bst_helper(BST<T>::Node* node) const {
-  if(node) {
-    try{
-      print_bst_helper(node->left.get());
-      cout << node->data << " ";
-      print_bst_helper(node->right.get());
-    }
-    catch(const exception& e){
-      cerr << "Exception occured : " << e.what() << endl;
-    }
   }
 }
 
 template <typename T>
-void BST<T>::print_bst() const {
-  print_bst_helper(root.get());
-}
-
-template <typename T>
-T* BST<T>::search_helper(const unique_ptr<typename BST<T>::Node>& node, const T& key) const {
+T * bst<T>::search_helper(const unique_ptr<typename bst<T>::Node> & node, const T & key) const {
   try {
     if (!node) {
       return nullptr;
@@ -137,7 +56,7 @@ T* BST<T>::search_helper(const unique_ptr<typename BST<T>::Node>& node, const T&
       return search_helper(node->right, key);
     }
     else {
-      return &(node->data);
+      return & (node->data);
     }
   }
   catch (const exception& e) {
@@ -147,18 +66,7 @@ T* BST<T>::search_helper(const unique_ptr<typename BST<T>::Node>& node, const T&
 }
 
 template <typename T>
-T* BST<T>::search(const T& key) {
-  try {
-    return search_helper(root, key);
-  }
-  catch (const exception& e) {
-    cerr << "Exception occured : " << e.what() << endl;
-    return nullptr;
-  }
-}
-
-template <typename T>
-bool BST<T>::remove_helper(unique_ptr<typename BST<T>::Node>& node, const T& value) {
+bool bst<T>::remove_helper(unique_ptr<typename bst<T>::Node> & node, const T & value) {
   try {
     if (!node) {
       return false;
@@ -178,7 +86,7 @@ bool BST<T>::remove_helper(unique_ptr<typename BST<T>::Node>& node, const T& val
         node = move(node->left);
       }
       else {
-        Node* successor = node->right.get();
+        Node * successor = node->right.get();
         while (successor->left) {
           successor = successor->left.get();
         }
@@ -188,14 +96,60 @@ bool BST<T>::remove_helper(unique_ptr<typename BST<T>::Node>& node, const T& val
       return true;
     }
   }
-  catch (const exception& e) {
+  catch (const exception & e) {
     cerr << "Exception occured: " << e.what() << endl;
     return false;
   }
 }
 
 template <typename T>
-bool BST<T>::remove(const T& value) {
+void bst<T>::print_bst_helper(bst<T>::Node * node) const {
+  if(node) {
+    try{
+      print_bst_helper(node->left.get());
+      cout << node->data << " ";
+      print_bst_helper(node->right.get());
+    }
+    catch(const exception & e){
+      cerr << "Exception occured : " << e.what() << endl;
+    }
+  }
+}
+
+
+template <typename T>
+bool bst<T>::insert(const T & value) {
+  try {
+    if (insert_helper(root, value)) {
+      count++;
+      return true;
+    }
+    return false;
+  }
+  catch (const bad_alloc & e) {
+    cerr << "Memory allocation failed: " << e.what() << endl;
+    return false;
+  }
+}
+
+template <typename T>
+void bst<T>::print_bst() const {
+  print_bst_helper(root.get());
+}
+
+template <typename T>
+T * bst<T>::search(const T & key) {
+  try {
+    return search_helper(root, key);
+  }
+  catch (const exception & e) {
+    cerr << "Exception occured : " << e.what() << endl;
+    return nullptr;
+  }
+}
+
+template <typename T>
+bool bst<T>::remove(const T & value) {
   try {
     if (remove_helper(root, value)) {
       count--;
@@ -203,25 +157,19 @@ bool BST<T>::remove(const T& value) {
     }
     return false;
   }
-  catch (const exception& e) {
+  catch (const exception & e) {
     cerr << "Exception occured: " << e.what() << endl;
     return false;
   }
 }
 
+
 template <typename T>
-bool BST<T>::is_empty() const {
+bool bst<T>::is_empty() const {
   return count == 0;
 }
 
-/*
 template <typename T>
-bool BST<T>::is_full() const {
-
-}
-*/
-
-template <typename T>
-size_t BST<T>::get_count() const {
+size_t bst<T>::get_count() const {
   return count;
 }
