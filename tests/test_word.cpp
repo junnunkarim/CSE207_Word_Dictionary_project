@@ -1,5 +1,5 @@
-#include "word.h"
-#include "bst.h"
+#include "../include/word.h"
+#include "../include/bst.h"
 #include <iostream>
 #include <string>
 

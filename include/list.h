@@ -6,15 +6,15 @@
   Written by : Junnun Mohamed Karim
 */
 
-#ifndef SINGLY_LINKED_LIST_H
-#define SINGLY_LINKED_LIST_H
+#ifndef LIST_H
+#define LIST_H
 
 #include <iostream>
 #include <cstddef>
 
 namespace ds {
   template <typename T>
-  class singly_linked_list {
+  class list {
     private:
       struct node {
         T data;
@@ -28,8 +28,8 @@ namespace ds {
       int size;
 
     public:
-      singly_linked_list();
-      ~singly_linked_list();
+      list();
+      ~list();
 
 
       bool insert_front(const T & data);
@@ -44,6 +44,6 @@ namespace ds {
   };
 }
 
-#include "singly_linked_list.tpp"
+#include "list.tpp"
 
 #endif

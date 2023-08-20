@@ -14,7 +14,7 @@
 #include <string>
 
 #include "bst.h"
-#include "singly_linked_list.h"
+#include "list.h"
 
 using std::string;
 
@@ -23,7 +23,7 @@ class word {
     string term;
     string definition;
 
-    ds::singly_linked_list<ds::bst<string>::Node *> similar_words;
+    ds::list<ds::bst<string>::Node *> similar_words;
 
   public:
     word();

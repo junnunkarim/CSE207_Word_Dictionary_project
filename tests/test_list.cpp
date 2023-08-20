@@ -1,8 +1,8 @@
-#include "../include/singly_linked_list.h"
+#include "../include/list.h"
 #include<bits/stdc++.h>
 
 int main() {
-  ds::singly_linked_list<int> list;
+  ds::list<int> list;
 
   std::cout << "insert" << endl;
   list.insert_front(4);
@@ -71,13 +71,13 @@ int main() {
     std::cout << "344 is not found" << endl;
 
 
-  ds::singly_linked_list<float> list_other;
+  ds::list<float> list_other;
 
   list_other.insert_front(9.434);
   list_other.insert_front(4.232);
   list_other.print();
 
-  ds::singly_linked_list<std::string> list_string;
+  ds::list<std::string> list_string;
 
   list_string.insert_back("something");
   list_string.insert_back("another");

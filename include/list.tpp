@@ -1,26 +1,24 @@
-#ifndef SINGLY_LINKED_LIST_TPP
-#define SINGLY_LINKED_LIST_TPP
+#ifndef LIST_TPP
+#define LIST_TPP
 
-#include "singly_linked_list.h"
+#include "list.h"
 #include <iostream>
 #include <stdexcept>
-
-//using namespace std;
 
 #define endl "\n"
 
 namespace ds {
   template <typename T>
-  singly_linked_list<T>::node::node() : data({}), next(nullptr) {}
+  list<T>::node::node() : data({}), next(nullptr) {}
 
   template <typename T>
-  singly_linked_list<T>::node::node(const T & data) : data(data), next(nullptr) {}
+  list<T>::node::node(const T & data) : data(data), next(nullptr) {}
 
   template <typename T>
-  singly_linked_list<T>::singly_linked_list() : head(nullptr), size(0) {}
+  list<T>::list() : head(nullptr), size(0) {}
 
   template <typename T>
-  singly_linked_list<T>::~singly_linked_list() {
+  list<T>::~list() {
     node * current = head;
 
     while(current != nullptr) {
@@ -35,7 +33,7 @@ namespace ds {
   }
 
   template <typename T>
-  bool singly_linked_list<T>::insert_front(const T & data) {
+  bool list<T>::insert_front(const T & data) {
     try {
       node * new_node = new node(data);
 
@@ -46,14 +44,14 @@ namespace ds {
 
       return true;
     }
-    catch(const bad_alloc & e) {
+    catch(const std::bad_alloc & e) {
       std::cout << "Unable to allocate more memory" << endl;
       return false;
     }
   }
 
   template <typename T>
-  bool singly_linked_list<T>::insert_back(const T & data) {
+  bool list<T>::insert_back(const T & data) {
     if(size == 0) 
       return insert_front(data);
     else {
@@ -72,7 +70,7 @@ namespace ds {
 
         return true;
       }
-      catch(const bad_alloc & e) {
+      catch(const std::bad_alloc & e) {
         std::cout << "Unable to allocate more memory" << endl;
         return false;
       }
@@ -80,7 +78,7 @@ namespace ds {
   }
 
   template <typename T>
-  bool singly_linked_list<T>::delete_front() {
+  bool list<T>::delete_front() {
     if(head == nullptr)
       return false;
     else {
@@ -96,7 +94,7 @@ namespace ds {
   }
 
   template <typename T>
-  bool singly_linked_list<T>::delete_back() {
+  bool list<T>::delete_back() {
     if(head == nullptr)
       return false;
     else {
@@ -115,7 +113,7 @@ namespace ds {
   }
 
   template <typename T>
-  bool singly_linked_list<T>::delete_key(const T & key) {
+  bool list<T>::delete_key(const T & key) {
     //if(head == nullptr)
     if(size == 0)
       return false;
@@ -164,7 +162,7 @@ namespace ds {
   }
 
   template <typename T>
-  bool singly_linked_list<T>::search(const T & key) {
+  bool list<T>::search(const T & key) {
     for(node * temp = head; temp != nullptr; temp = temp -> next) {
       if(temp -> data == key)
         return true;
@@ -174,7 +172,7 @@ namespace ds {
   }
 
   template <typename T>
-  void singly_linked_list<T>::print() {
+  void list<T>::print() {
     std::cout << "[";
 
     for(node * i = head; i != nullptr; i = i -> next) {
@@ -185,12 +183,12 @@ namespace ds {
   }
 
   template <typename T>
-  typename singly_linked_list<T>::node * singly_linked_list<T>::begin() const {
+  typename list<T>::node * list<T>::begin() const {
     return head;
   }
 
   template <typename T>
-  typename singly_linked_list<T>::node * singly_linked_list<T>::end() const {
+  typename list<T>::node * list<T>::end() const {
     node * temp = head;
 
     while(temp -> next != nullptr)
