@@ -170,6 +170,32 @@ bool bst<T>::is_empty() const {
 }
 
 template <typename T>
+bool bst<T>::is_full_helper(const unique_ptr<bst<T>::Node> & node) const {
+  try {
+    if(!node)
+      return true;
+    if((node->left && !node->right) || (!node->left && node->right))
+      return false;
+    return is_full_helper(node->left) && is_full_helper(node->right);
+  }
+  catch (const exception & e) {
+    cerr << "Exception occured: " << e.what() << endl;
+    //what to return??
+  }
+}
+
+template <typename T>
+bool bst<T>::is_full() const {
+  try {
+    return is_full_helper(root);
+  }
+  catch (const exception & e) {
+    cerr << "Exception occured: " << e.what() << endl;
+    //what to return??
+  }
+}
+
+template <typename T>
 size_t bst<T>::get_count() const {
   return count;
 }

@@ -30,16 +30,17 @@ class bst {
     unique_ptr<Node> root;
 
     bool insert_helper(unique_ptr<Node> & node, const T & value);
-    T *   search_helper(const unique_ptr<Node> & node, const T & key) const;
+    T *  search_helper(const unique_ptr<Node> & node, const T & key) const;
     bool remove_helper(unique_ptr<Node> & node, const T & value);
     void print_bst_helper(bst<T>::Node * node) const;
+    bool is_full_helper(const unique_ptr<Node> & node) const;
   public:
     bst();
     ~bst();
 
     bool insert(const T& value);
     bool remove(const T& value);
-    T * search(const T& key);
+    T *  search(const T& key);
     void print_bst() const;
 
     bool is_empty() const;
