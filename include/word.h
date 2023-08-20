@@ -41,6 +41,4 @@ class word {
     friend ostream& operator<<(ostream& os, const word& w);
 };
 
-#include "word.tpp"
-
 #endif //WORD_H
