@@ -1,3 +1,6 @@
+#ifndef SINGLY_LINKED_LIST_TPP
+#define SINGLY_LINKED_LIST_TPP
+
 #include "singly_linked_list.h"
 #include <iostream>
 #include <stdexcept>
@@ -194,3 +197,5 @@ typename singly_linked_list<T>::node * singly_linked_list<T>::end() const {
 
   return temp;
 }
+
+#endif

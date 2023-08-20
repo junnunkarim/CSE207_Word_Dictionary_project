@@ -1,3 +1,6 @@
+#ifndef BST_TPP
+#define BST_TPP
+
 #include "bst.h"
 #include <iostream>
 #include <stdexcept>
@@ -204,3 +207,5 @@ template <typename T>
 typename bst<T>::Node * bst<T>::get_root() const {
   return root.get();
 }
+
+#endif
