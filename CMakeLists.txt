@@ -13,8 +13,8 @@ set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${SOURCE_DIR}/include)
 
 # Create an executable target
-add_executable(MyExecutable
+add_executable(dictionary
   ${SOURCE_DIR}/main.cpp
-  ${SOURCE_DIR}/include/binary_search_tree.cpp
-  ${SOURCE_DIR}/include/dictionary.cpp
+  ${SOURCE_DIR}/include/bst.h
+  ${SOURCE_DIR}/include/singly_linked_list.h
 )
