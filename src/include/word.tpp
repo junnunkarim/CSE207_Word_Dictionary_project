@@ -28,8 +28,8 @@ string word::get_definition() const {
 }
 
 void word::display() const {
-  cout << term << ":-" << endl;
-  cout << "\t" << "Definition - " << definition << endl;
+  std::cout << term << ":-" << endl;
+  std::cout << "\t" << "Definition - " << definition << endl;
 }
 
 
@@ -44,4 +44,10 @@ bool word::operator<(const word & other) const {
 }
 bool word::operator>(const word & other) const {
   return term > other.term;
+}
+
+ostream & operator<<(ostream & os, const word & w) {
+  os << w.term;
+
+  return os;
 }

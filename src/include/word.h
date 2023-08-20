@@ -38,6 +38,7 @@ class word {
     bool operator!=(const word & other) const;
     bool operator<(const word & other) const;
     bool operator>(const word & other) const;
+    friend ostream& operator<<(ostream& os, const word& w);
 };
 
 #include "word.tpp"

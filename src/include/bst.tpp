@@ -105,12 +105,12 @@ bool bst<T>::remove_helper(unique_ptr<typename bst<T>::Node> & node, const T & v
 template <typename T>
 void bst<T>::print_bst_helper(bst<T>::Node * node) const {
   if(node) {
-    try{
+    try {
       print_bst_helper(node->left.get());
-      cout << node->data << " ";
+      std::cout << node->data << " ";
       print_bst_helper(node->right.get());
     }
-    catch(const exception & e){
+    catch(const exception & e) {
       cerr << "Exception occured : " << e.what() << endl;
     }
   }
@@ -133,7 +133,7 @@ bool bst<T>::insert(const T & value) {
 }
 
 template <typename T>
-void bst<T>::print_bst() const {
+void bst<T>::print() const {
   print_bst_helper(root.get());
 }
 

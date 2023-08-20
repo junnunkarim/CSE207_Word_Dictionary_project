@@ -13,7 +13,7 @@ int main() {
 
   // Print the elements using the traverse method
   std::cout << "In-order traversal: ";
-  bst.print_bst();
+  bst.print();
   std::cout << std::endl;
 
   // Search for an element

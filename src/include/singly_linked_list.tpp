@@ -1,4 +1,5 @@
 #include "singly_linked_list.h"
+#include <iostream>
 #include <stdexcept>
 
 using namespace std;

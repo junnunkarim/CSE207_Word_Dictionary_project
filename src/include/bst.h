@@ -44,7 +44,7 @@ class bst {
     bool insert(const T& value);
     bool remove(const T& value);
     T *  search(const T& key);
-    void print_bst() const;
+    void print() const;
 
     bool is_empty() const;
     bool is_full() const;

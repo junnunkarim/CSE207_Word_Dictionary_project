@@ -1,4 +1,5 @@
 #include "../src/include/word.h"
+#include "../src/include/bst.h"
 #include <iostream>
 #include <string>
 
@@ -27,6 +28,14 @@ int main() {
   cout << "w1 < w2: " << (w1 < w2) << endl;
   cout << "w1 > w3: " << (w1 > w2) << endl;
   cout << "w2 == w3: " << (w1 == w2) << endl;
+
+  bst<word> word_tree;
+
+  word_tree.insert(w1);
+  word_tree.insert(w2);
+  word_tree.insert(w3);
+
+  word_tree.print();
 
   return 0;
 }
