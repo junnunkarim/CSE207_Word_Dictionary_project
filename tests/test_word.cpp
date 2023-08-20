@@ -29,7 +29,7 @@ int main() {
   cout << "w1 > w3: " << (w1 > w2) << endl;
   cout << "w2 == w3: " << (w1 == w2) << endl;
 
-  bst<word> word_tree;
+  ds::bst<word> word_tree;
 
   word_tree.insert(w1);
   word_tree.insert(w2);

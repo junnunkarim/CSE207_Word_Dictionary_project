@@ -1,10 +1,8 @@
-#include "../src/include/bst.h"
+#include "../include/bst.h"
 #include <iostream>
 
-using namespace std;
-
 int main() {
-  bst<int> bst;
+  ds::bst<int> bst;
   int a = 1;
 
   for(int i = 1; i < 999; i++) {
@@ -46,7 +44,7 @@ int main() {
     std::cout << "The bst is not empty." << std::endl;
   }
 
-  cout << bst.get_root() << endl;
+  std::cout << bst.get_root() << endl;
 
   return 0;
 }

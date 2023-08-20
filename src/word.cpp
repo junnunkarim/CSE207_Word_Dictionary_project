@@ -1,11 +1,10 @@
-#include "word.h"
+#include "../include/word.h"
 #include <iostream>
 #include <string>
 #include <algorithm> // for std::transform
 #include <cctype> // for std::tolower
 
-using namespace std;
-
+using std::string;
 
 word::word() : term({}), definition({}) {}
 

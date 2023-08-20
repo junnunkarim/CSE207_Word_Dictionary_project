@@ -13,44 +13,44 @@
 #include <memory>
 #include <cstddef>
 
-using namespace std;
+namespace ds {
+  template <typename T>
+  class bst {
+    public:
+      struct Node {
+        T data;
+        std::unique_ptr<Node> left;
+        std::unique_ptr<Node> right;
 
-template <typename T>
-class bst {
-  public:
-    struct Node {
-      T data;
-      unique_ptr<Node> left;
-      unique_ptr<Node> right;
+        Node();
+        Node(const T & value);
+      };
 
-      Node();
-      Node(const T & value);
-    };
+    private:
+      size_t count;
+      std::unique_ptr<Node> root;
 
-  private:
-    size_t count;
-    unique_ptr<Node> root;
+      bool insert_helper(std::unique_ptr<Node> & node, const T & value);
+      T *  search_helper(const std::unique_ptr<Node> & node, const T & key) const;
+      bool remove_helper(std::unique_ptr<Node> & node, const T & value);
+      void print_bst_helper(bst<T>::Node * node) const;
+      bool is_full_helper(const std::unique_ptr<Node> & node) const;
 
-    bool insert_helper(unique_ptr<Node> & node, const T & value);
-    T *  search_helper(const unique_ptr<Node> & node, const T & key) const;
-    bool remove_helper(unique_ptr<Node> & node, const T & value);
-    void print_bst_helper(bst<T>::Node * node) const;
-    bool is_full_helper(const unique_ptr<Node> & node) const;
+    public:
+      bst();
+      ~bst();
 
-  public:
-    bst();
-    ~bst();
+      bool insert(const T& value);
+      bool remove(const T& value);
+      T *  search(const T& key);
+      void print() const;
 
-    bool insert(const T& value);
-    bool remove(const T& value);
-    T *  search(const T& key);
-    void print() const;
-
-    bool is_empty() const;
-    bool is_full() const;
-    size_t get_count() const;
-    Node * get_root() const;
-};
+      bool is_empty() const;
+      bool is_full() const;
+      size_t get_count() const;
+      Node * get_root() const;
+  };
+}
 
 #include "bst.tpp"
 

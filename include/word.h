@@ -16,14 +16,14 @@
 #include "bst.h"
 #include "singly_linked_list.h"
 
-using namespace std;
+using std::string;
 
 class word {
   private:
     string term;
     string definition;
 
-    singly_linked_list<bst<string>::Node *> similar_words;
+    ds::singly_linked_list<ds::bst<string>::Node *> similar_words;
 
   public:
     word();
