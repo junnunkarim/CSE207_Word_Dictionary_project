@@ -10,23 +10,34 @@
 #ifndef WORD_H
 #define WORD_H
 
+#include <memory>
 #include <string>
+
+#include "bst.h"
+#include "singly_linked_list.h"
+
 using namespace std;
 
 class word {
-private:  
-  string term;
-  string definition;
-  //dynamic arraylist for similar words pointer
+  private:
+    string term;
+    string definition;
 
-public:
-  word();
-  word(string & term, const string & definition);
+    singly_linked_list<bst<string>::Node *> similar_words;
 
-  string get_term() const;
-  string get_definition() const;
-  short compare(const word & other_word) const;
-  void display() const;
+  public:
+    word();
+    word(const string & term, const string & definition);
+    ~word();
+
+    string get_term() const;
+    string get_definition() const;
+    void display() const;
+
+    bool operator==(const word & other) const;
+    bool operator!=(const word & other) const;
+    bool operator<(const word & other) const;
+    bool operator>(const word & other) const;
 };
 
 #include "word.tpp"

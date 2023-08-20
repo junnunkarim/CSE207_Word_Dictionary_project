@@ -7,8 +7,8 @@
   Date       : 18 August, 2023
 */
 
-#ifndef bst_H
-#define bst_H
+#ifndef BST_H
+#define BST_H
 
 #include <memory>
 #include <cstddef>
@@ -17,7 +17,7 @@ using namespace std;
 
 template <typename T>
 class bst {
-  private:
+  public:
     struct Node {
       T data;
       unique_ptr<Node> left;
@@ -26,6 +26,8 @@ class bst {
       Node();
       Node(const T & value);
     };
+
+  private:
     size_t count;
     unique_ptr<Node> root;
 
@@ -34,6 +36,7 @@ class bst {
     bool remove_helper(unique_ptr<Node> & node, const T & value);
     void print_bst_helper(bst<T>::Node * node) const;
     bool is_full_helper(const unique_ptr<Node> & node) const;
+
   public:
     bst();
     ~bst();
@@ -46,6 +49,7 @@ class bst {
     bool is_empty() const;
     bool is_full() const;
     size_t get_count() const;
+    Node * get_root() const;
 };
 
 #include "bst.tpp"

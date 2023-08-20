@@ -199,3 +199,8 @@ template <typename T>
 size_t bst<T>::get_count() const {
   return count;
 }
+
+template <typename T>
+typename bst<T>::Node * bst<T>::get_root() const {
+  return root.get();
+}

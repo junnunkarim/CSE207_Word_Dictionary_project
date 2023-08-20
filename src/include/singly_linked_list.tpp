@@ -1,5 +1,5 @@
 #include "singly_linked_list.h"
-#include<bits/stdc++.h>
+#include <stdexcept>
 
 using namespace std;
 

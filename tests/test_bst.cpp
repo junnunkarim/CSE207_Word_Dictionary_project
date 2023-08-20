@@ -46,5 +46,7 @@ int main() {
     std::cout << "The bst is not empty." << std::endl;
   }
 
+  cout << bst.get_root() << endl;
+
   return 0;
 }
