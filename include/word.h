@@ -32,6 +32,9 @@ class word {
 
     string get_term() const;
     string get_definition() const;
+    void set_term(const string & term);
+    void set_definition(const string & definition);
+    void set_similar_words(const ds::list<ds::bst<string>::Node *> similar_words);
     void display() const;
 
     bool operator==(const word & other) const;

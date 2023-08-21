@@ -63,7 +63,7 @@ namespace ds {
         return & (node->data);
       }
     }
-    catch (const exception& e) {
+    catch (const exception & e) {
       cerr << "Exception occured : " << e.what() << endl;
       return nullptr;
     }

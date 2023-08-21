@@ -26,6 +26,18 @@ string word::get_definition() const {
   return definition;
 }
 
+void word::set_term(const string & term) {
+  this->term = term;
+}
+
+void word::set_definition(const string & definition) {
+  this->definition = definition;
+}
+
+void word::set_similar_words(const ds::list<ds::bst<string>::Node *> similar_words) {
+  this->similar_words = similar_words;
+}
+
 void word::display() const {
   std::cout << term << ":-" << endl;
   std::cout << "\t" << "Definition - " << definition << endl;
