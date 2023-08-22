@@ -190,9 +190,44 @@ void search_word() {
 }
 
 void delete_word() {
+  string term = {};
 
+  cout << "        Delete" << endl;
+  cout << "--------------" << endl;
+
+  term = input_word();
+
+  word new_word(term, {});
+
+  if(!WORD_TREE.search(new_word)) {
+    cout << "Word not found!";
+  }
+  else {
+    if (WORD_TREE.remove(new_word)) {
+      cout << "Word deleted successfully!";
+      return;
+    }
+    else {
+      cout << "Error! Could not delete the word!" << endl;
+    }
+  }
 }
 
 void update_word() {
+  string term = {};
 
+  cout << "        Update" << endl;
+  cout << "--------------" << endl;
+
+  term = input_word();
+
+  word new_word(term, {});
+
+  if(!WORD_TREE.search(new_word)) {
+    cout << "Word not found!";
+  }
+  else {
+    WORD_TREE.search(new_word)->set_term(term);
+    cout << "Word updated successfully!";
+  }
 }
