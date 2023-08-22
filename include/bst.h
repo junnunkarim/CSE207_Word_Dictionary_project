@@ -43,6 +43,7 @@ namespace ds {
       bool insert(const T& value);
       bool remove(const T& value);
       T *  search(const T& key);
+      T * search_node(const T & key);
       void print() const;
 
       bool is_empty() const;

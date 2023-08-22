@@ -60,7 +60,7 @@ namespace ds {
         return search_helper(node->right, key);
       }
       else {
-        return & (node->data);
+        return & (node);
       }
     }
     catch (const exception & e) {
@@ -144,11 +144,21 @@ namespace ds {
   template <typename T>
   T * bst<T>::search(const T & key) {
     try {
-      return search_helper(root, key);
+      return search_helper(root, key)->data;
     }
     catch (const exception & e) {
       cerr << "Exception occured : " << e.what() << endl;
       return nullptr;
+    }
+  }
+
+  template <typename T>
+  T * bst<T>::search_node(const T & key) {
+    try {
+        return search_helper(root, key);
+    }
+    catch(const exception & e) {
+      cerr << "Exception occured : " << e.what() << endl;
     }
   }
 
@@ -184,7 +194,6 @@ namespace ds {
     }
     catch (const exception & e) {
       cerr << "Exception occured: " << e.what() << endl;
-      //what to return??
     }
   }
 
@@ -195,7 +204,6 @@ namespace ds {
     }
     catch (const exception & e) {
       cerr << "Exception occured: " << e.what() << endl;
-      //what to return??
     }
   }
 
