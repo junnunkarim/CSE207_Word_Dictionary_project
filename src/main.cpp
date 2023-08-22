@@ -139,13 +139,15 @@ void print_suggestions(ds::bst<word>::Node * subtree) {
     current = current->right.get();
   }
 
-  //print the collected data
+  //Print the suggestions for the nearest words.
   cout<<"Did you mean: ";
   int cnt = 0;
   for(const word& item : data){
-    if(cnt<5){
-      std::cout<<"\""<<item<<"\""<<" ";
+    if(cnt>=5){
+      break;
     }
+    
+    std::cout<<"\""<<item<<"\""<<" ";
     cnt++;
   }
   std::cout<<std::endl;
