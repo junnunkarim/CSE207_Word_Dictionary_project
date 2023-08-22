@@ -121,7 +121,34 @@ string input_word() {
 }
 
 void print_suggestions(ds::bst<word>::Node * subtree) {
+  std::vector<word> data;
+  std::stack<ds::bst<word>::Node*> nodeStack;
 
+  ds::bst<word>::Node * current = subtree;
+
+  while(current || !nodeStack.empty()) {
+    while(current) {
+      nodeStack.push(current);
+      current = current->left.get();
+    }
+
+    current = nodeStack.top();
+    nodeStack.pop();
+
+    data.push_back(current->data);
+    current = current->right.get();
+  }
+
+  //print the collected data
+  cout<<"Did you mean: ";
+  int cnt = 0;
+  for(const word& item : data){
+    if(cnt<5){
+      std::cout<<"\""<<item<<"\""<<" ";
+    }
+    cnt++;
+  }
+  std::cout<<std::endl;
 }
 
 
@@ -144,21 +171,21 @@ void add_word() {
   }
 }
 
-void search_word() {
+void search_word() { 
   string target_str = {};
 
   cout << "        Search" << endl;
   cout << "--------------" << endl;
-  target_str = input_word();
+  target_str = input_word(); 
 
   word target(target_str, {});
-  word * result = WORD_TREE.search(target);
+  Node * result = WORD_TREE.search_node(target);
 
   if(result != nullptr) {
-    //print_suggestions();
+    //print_suggestions(result);
   }
   else {
-    (*result).display();
+    (*result)->data.display();
   }
 }
 
