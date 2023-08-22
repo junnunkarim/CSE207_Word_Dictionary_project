@@ -62,3 +62,8 @@ ostream & operator<<(ostream & os, const word & w) {
 
   return os;
 }
+
+
+word::operator std::string() const {
+  return term;
+}

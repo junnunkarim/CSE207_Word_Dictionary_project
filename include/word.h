@@ -42,6 +42,8 @@ class word {
     bool operator<(const word & other) const;
     bool operator>(const word & other) const;
     friend ostream& operator<<(ostream& os, const word& w);
+
+    operator std::string() const;
 };
 
 #endif //WORD_H

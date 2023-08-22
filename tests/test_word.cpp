@@ -37,5 +37,11 @@ int main() {
 
   word_tree.print();
 
+  cout << endl;
+
+  string test_word = w1;
+
+  cout << "Testing string conversation operator overloading: " << test_word << endl;
+
   return 0;
 }
