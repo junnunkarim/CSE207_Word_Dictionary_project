@@ -278,5 +278,28 @@ void update_word() {
 void print_tree() {
 
 }
+/*
+void print_tree(ds::bst<word>::Node * root, size_t level = 0, string prefix = "Root: ") {
+  util::clear_screen();
+
+  if(root != nullptr) {
+    if(level == 0) {
+      cout << prefix << root -> data.get_term() << endl;
+    }
+    else {
+      string indent(level * 4, ' ');
+      cout << indent << "|___" << root -> data.get_term() << endl;
+    }
+
+    if(root -> left != nullptr || root -> right != nullptr) {
+      print_tree(root -> left.get(), level + 1, "L---");
+      print_tree(root -> right.get(), level + 1, "R---");
+    }
+  }
+
+  util::wait_for_input();
+  util::wait_for_input();
+}
+*/
 //------------------------------------------------//
 //################################################//
