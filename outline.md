@@ -41,4 +41,4 @@
 
 ## optional features
 - implement a database to store words instead of files
-- implement a gui using imgui
+- implement a tui/gui using imgui

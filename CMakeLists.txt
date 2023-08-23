@@ -21,7 +21,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Create an executable target
 add_executable(dictionary
   ${SOURCE_DIR}/main.cpp
+  ${SOURCE_DIR}/utility.cpp
   ${SOURCE_DIR}/word.cpp
+
   #${TESTS_DIR}/test_word.cpp
   #${SOURCE_DIR}/word.cpp
 

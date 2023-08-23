@@ -31,7 +31,7 @@ namespace ds {
       std::unique_ptr<Node> root;
 
       bool insert_helper(std::unique_ptr<Node> & node, const T & value);
-      T *  search_helper(const std::unique_ptr<Node> & node, const T & key) const;
+      Node * search_helper(const std::unique_ptr<Node> & node, const T & key) const;
       bool remove_helper(std::unique_ptr<Node> & node, const T & value);
       void print_bst_helper(bst<T>::Node * node) const;
       bool is_full_helper(const std::unique_ptr<Node> & node) const;
@@ -43,7 +43,7 @@ namespace ds {
       bool insert(const T& value);
       bool remove(const T& value);
       T *  search(const T& key);
-      T * search_node(const T & key);
+      Node * search_node(const T & key);
       void print() const;
 
       bool is_empty() const;

@@ -41,13 +41,13 @@ namespace ds {
       }
     }
     catch(const bad_alloc & e) {
-      cerr << "Memory allocation failed: " << e.what() << endl;
+      cerr << "Memory allocation failed: " << e.what() << std::endl;
       return false;
     }
   }
 
   template <typename T>
-  T * bst<T>::search_helper(const unique_ptr<typename bst<T>::Node> & node, const T & key) const {
+  typename bst<T>::Node * bst<T>::search_helper(const unique_ptr<typename bst<T>::Node> & node, const T & key) const {
     try {
       if (!node) {
         return nullptr;
@@ -60,11 +60,11 @@ namespace ds {
         return search_helper(node->right, key);
       }
       else {
-        return & (node);
+        return node.get();
       }
     }
     catch (const exception & e) {
-      cerr << "Exception occured : " << e.what() << endl;
+      cerr << "Exception occured : " << e.what() << std::endl;
       return nullptr;
     }
   }
@@ -101,7 +101,7 @@ namespace ds {
       }
     }
     catch (const exception & e) {
-      cerr << "Exception occured: " << e.what() << endl;
+      cerr << "Exception occured: " << e.what() << std::endl;
       return false;
     }
   }
@@ -115,7 +115,7 @@ namespace ds {
         print_bst_helper(node->right.get());
       }
       catch(const exception & e) {
-        cerr << "Exception occured : " << e.what() << endl;
+        cerr << "Exception occured : " << e.what() << std::endl;
       }
     }
   }
@@ -131,7 +131,7 @@ namespace ds {
       return false;
     }
     catch (const bad_alloc & e) {
-      cerr << "Memory allocation failed: " << e.what() << endl;
+      cerr << "Memory allocation failed: " << e.what() << std::endl;
       return false;
     }
   }
@@ -144,21 +144,22 @@ namespace ds {
   template <typename T>
   T * bst<T>::search(const T & key) {
     try {
-      return search_helper(root, key)->data;
+      return & search_helper(root, key)->data;
     }
     catch (const exception & e) {
-      cerr << "Exception occured : " << e.what() << endl;
+      cerr << "Exception occured : " << e.what() << std::endl;
       return nullptr;
     }
   }
 
   template <typename T>
-  T * bst<T>::search_node(const T & key) {
+  typename bst<T>::Node * bst<T>::search_node(const T & key) {
     try {
-        return search_helper(root, key);
+      return search_helper(root, key);
     }
     catch(const exception & e) {
-      cerr << "Exception occured : " << e.what() << endl;
+      cerr << "Exception occured : " << e.what() << std::endl;
+      return nullptr;
     }
   }
 
@@ -172,7 +173,7 @@ namespace ds {
       return false;
     }
     catch (const exception & e) {
-      cerr << "Exception occured: " << e.what() << endl;
+      cerr << "Exception occured: " << e.what() << std::endl;
       return false;
     }
   }
@@ -193,7 +194,7 @@ namespace ds {
       return is_full_helper(node->left) && is_full_helper(node->right);
     }
     catch (const exception & e) {
-      cerr << "Exception occured: " << e.what() << endl;
+      cerr << "Exception occured: " << e.what() << std::endl;
     }
   }
 
@@ -203,7 +204,7 @@ namespace ds {
       return is_full_helper(root);
     }
     catch (const exception & e) {
-      cerr << "Exception occured: " << e.what() << endl;
+      cerr << "Exception occured: " << e.what() << std::endl;
     }
   }
 

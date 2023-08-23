@@ -5,8 +5,6 @@
 #include <iostream>
 #include <stdexcept>
 
-#define endl "\n"
-
 namespace ds {
   template <typename T>
   list<T>::node::node() : data({}), next(nullptr) {}
@@ -45,7 +43,7 @@ namespace ds {
       return true;
     }
     catch(const std::bad_alloc & e) {
-      std::cout << "Unable to allocate more memory" << endl;
+      std::cout << "Unable to allocate more memory" << std::endl;
       return false;
     }
   }
@@ -71,7 +69,7 @@ namespace ds {
         return true;
       }
       catch(const std::bad_alloc & e) {
-        std::cout << "Unable to allocate more memory" << endl;
+        std::cout << "Unable to allocate more memory" << std::endl;
         return false;
       }
     }
@@ -179,7 +177,7 @@ namespace ds {
       std::cout << " " << i -> data << " ";
     }
 
-    std::cout << "]" << endl;
+    std::cout << "]" << std::endl;
   }
 
   template <typename T>
