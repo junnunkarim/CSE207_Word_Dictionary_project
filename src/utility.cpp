@@ -24,7 +24,8 @@ namespace util {
     std::string line = {};
 
     std::cout << std::endl;
-    std::cout << "Press [ENTER]";
+    std::cout << "---------------------------------- Press [ENTER]";
+    std::cout << std::endl;
 
     std::getline(std::cin, line); // wait for Enter key
   }
@@ -51,16 +52,19 @@ namespace util {
 
     // take input until string contains only alphabets
     do {
-      std::cout << "Enter a word: " << std::endl;
+      //std::cout << "Enter a word: " << std::endl;
       std::cin >> str;
 
       clear_input_buffer();
 
       if(!word_is_alpha(str)) {
+        std::cout << std::endl;
         std::cout << "Error! Word should only contain Alphabets!" << std::endl;
         std::cout << "Please try again!" << std::endl;
 
         wait_for_input();
+
+        std::cout << "Please enter a new word: ";
       }
       else {
         break;
