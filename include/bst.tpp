@@ -4,6 +4,7 @@
 #include "bst.h"
 #include <iostream>
 #include <stdexcept>
+#include <limits> // for clearing input buffer
 
 using namespace std;
 
@@ -107,19 +108,22 @@ namespace ds {
   }
 
   template <typename T>
-  void bst<T>::print_bst_helper(bst<T>::Node * node) const {
-    if(node) {
-      try {
-        print_bst_helper(node->left.get());
-        std::cout << node->data << " ";
-        print_bst_helper(node->right.get());
+  void bst<T>::print_helper(bst<T>::Node * root, size_t level, std::string prefix) const {
+    if(root != nullptr) {
+      if(level == 0) {
+        std::cout << prefix << root -> data << std::endl;
       }
-      catch(const exception & e) {
-        cerr << "Exception occured : " << e.what() << std::endl;
+      else {
+        std::string indent(level * 4, ' ');
+        std::cout << indent << "└── " << root -> data << std::endl;
+      }
+
+      if(root -> left != nullptr || root -> right != nullptr) {
+        print_helper(root -> left.get(), level + 1, "L---");
+        print_helper(root -> right.get(), level + 1, "R---");
       }
     }
   }
-
 
   template <typename T>
   bool bst<T>::insert(const T & value) {
@@ -138,7 +142,13 @@ namespace ds {
 
   template <typename T>
   void bst<T>::print() const {
-    print_bst_helper(root.get());
+    if(root != nullptr)
+      print_helper(root.get(), 0, "Root: ");
+    else
+      std::cout << "Binary-Search Tree is empty!" << std::endl;
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
 
   template <typename T>

@@ -11,6 +11,7 @@
 #define BST_H
 
 #include <memory>
+#include <string>
 #include <cstddef>
 
 namespace ds {
@@ -33,7 +34,7 @@ namespace ds {
       bool insert_helper(std::unique_ptr<Node> & node, const T & value);
       Node * search_helper(const std::unique_ptr<Node> & node, const T & key) const;
       bool remove_helper(std::unique_ptr<Node> & node, const T & value);
-      void print_bst_helper(bst<T>::Node * node) const;
+      void print_helper(bst<T>::Node * root, size_t level, std::string prefix) const;
       bool is_full_helper(const std::unique_ptr<Node> & node) const;
 
     public:
