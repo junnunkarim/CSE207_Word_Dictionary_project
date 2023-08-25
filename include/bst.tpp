@@ -115,12 +115,12 @@ namespace ds {
       }
       else {
         std::string indent(level * 4, ' ');
-        std::cout << indent << "└── " << root -> data << std::endl;
+        std::cout << indent << "└── " << prefix << root -> data << std::endl;
       }
 
       if(root -> left != nullptr || root -> right != nullptr) {
-        print_helper(root -> left.get(), level + 1, "L---");
-        print_helper(root -> right.get(), level + 1, "R---");
+        print_helper(root -> left.get(), level + 1, "Left: ");
+        print_helper(root -> right.get(), level + 1, "Right: ");
       }
     }
   }

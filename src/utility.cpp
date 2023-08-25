@@ -24,7 +24,7 @@ namespace util {
     std::string line = {};
 
     std::cout << std::endl;
-    std::cout << "---------------------------------- Press [ENTER]";
+    std::cout << "────────────────────────────────── Press [ENTER]";
     std::cout << std::endl;
 
     std::getline(std::cin, line); // wait for Enter key
