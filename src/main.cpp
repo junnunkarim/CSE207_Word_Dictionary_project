@@ -12,7 +12,7 @@ static ds::bst<word> WORD_TREE;
 
 void print_menu();
 int choice();
-ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, char & letter, int index);
+ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index);
 void print_suggestions_helper(ds::bst<word>::Node * subtree);
 void print_suggestions(word & search);
 
@@ -94,7 +94,7 @@ int choice() {
   return choice;
 }
 
-ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, char & letter, int index) {
+ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index) {
   try {
     if (!node) {
       return nullptr;
@@ -102,14 +102,11 @@ ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, char & lette
 
     string current_word = node->data;
 
-    if ( (index + 1) > current_word.size()) {
+    if ( (index + 1) > current_word.size() || letter > current_word[index]) {
       return find_closest_node(node->right.get(), letter, index);
     }
     else if (letter < current_word[index]) {
       return find_closest_node(node->left.get(), letter, index);
-    }
-    else if (letter > current_word[index]) {
-      return find_closest_node(node->right.get(), letter, index);
     }
     else {
       return node;
@@ -210,10 +207,10 @@ void search_word() {
 
   // instantiate a word object named 'target'
   word target(target_str, {});
-  ds::bst<word>::Node * result = WORD_TREE.search_node(target);
+  ds::bst<word>::Node * found_node = WORD_TREE.search_node(target);
 
   if(root != nullptr) {
-    if(result == nullptr) {
+    if(found_node == nullptr) {
       std::cout << "The word '" << target_str << "' was not found." << std::endl;
 
       print_suggestions(target);
@@ -224,7 +221,7 @@ void search_word() {
       std::cout << std::endl;
       std::cout << "Search result:" << std::endl;
 
-      (*result).data.display();
+      (*found_node).data.display();
 
       util::wait_for_input();
     }
