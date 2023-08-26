@@ -2,16 +2,63 @@
 #define UTILITY_CPP
 
 #include <iostream>
-#include <string>
 #include <limits> // for clearing input buffer
 #include <algorithm> // for std::transform
 #include <cctype> // for std::tolower
+#include <string>
+#include <fstream>
+#include <sstream>
 
+#include "../include/list.h"
+#include "../include/bst.h"
 #include "../include/utility.h"
 
 namespace util {
-  void initialize() {
+  ds::list<string> str_split(string line, char delimeter) {
+    std::istringstream line_stream(line);
+    std::string token = {};
+    ds::list<std::string> token_list;
 
+    while(std::getline(line_stream, token, delimeter)) {
+      token_list.insert_back(token);
+    }
+
+    return token_list;
+  }
+
+  void load_database(ds::bst<word> & WORD_TREE) {
+    std::string filename = "../data/database";
+
+    std::ifstream input_file(filename);
+
+    if(!input_file) {
+      std::cerr << "Error loading database from file!" << std::endl;
+
+      wait_for_input();
+    }
+    else {
+      std::string line;
+      char delimeter = '|';
+
+      while(std::getline(input_file, line)) {
+        ds::list<string> token_list = str_split(line, delimeter);
+        word new_word;
+
+        if(token_list.get_size() == 1) {
+          new_word(token_list[0], {});
+        }
+        else if(token_list.get_size() >= 2) {
+          new_word(token_list[0], token_list[1]);
+        }
+        else {
+          break;
+        }
+
+        WORD_TREE.insert(new_word);
+        //WORD_TREE.print();
+      }
+      input_file.close();
+    }
   }
 
   void clear_input_buffer() {

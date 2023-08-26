@@ -174,7 +174,12 @@ namespace ds {
     std::cout << "[";
 
     for(node * i = head; i != nullptr; i = i -> next) {
-      std::cout << " " << i -> data << " ";
+      std::cout << " " << i -> data;
+
+      if(i -> next == nullptr)
+        std::cout << " ";
+      else
+        std::cout << ",";
     }
 
     std::cout << "]" << std::endl;
@@ -193,6 +198,26 @@ namespace ds {
       temp = temp -> next;
 
     return temp;
+  }
+
+  template <typename T>
+  int list<T>::get_size() const {
+    return size;
+  }
+
+
+  template <typename T>
+  T& ds::list<T>::operator[](int index) {
+      if (index < 0 || index >= size) {
+          throw std::out_of_range("Index out of bounds");
+      }
+
+      node* current = head;
+      for (int i = 0; i < index; i++) {
+          current = current->next;
+      }
+
+      return current->data;
   }
 }
 

@@ -35,6 +35,7 @@ class word {
     void set_similar_words(const ds::list<ds::bst<std::string>::Node *> similar_words);
     void display() const;
 
+    void operator()(const std::string & term, const std::string & definition);
     bool operator==(const word & other) const;
     bool operator!=(const word & other) const;
     bool operator<(const word & other) const;

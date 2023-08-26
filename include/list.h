@@ -41,6 +41,9 @@ namespace ds {
       void print();
       node * begin() const;
       node * end() const;
+      int get_size() const;
+
+      T & operator[](int index);
   };
 }
 

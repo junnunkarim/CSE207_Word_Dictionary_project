@@ -8,7 +8,6 @@
 #include "../include/word.h"
 #include "../include/utility.h"
 
-static ds::bst<word> WORD_TREE;
 
 void print_menu();
 int choice();
@@ -24,8 +23,12 @@ void delete_word();
 void update_word();
 void print_tree();
 
+
+static ds::bst<word> WORD_TREE;
+
+
 int main() {
-  util::initialize();
+  util::load_database(WORD_TREE);
 
   while(1) {
     print_menu();
@@ -236,6 +239,10 @@ void delete_word() {
   std::cout << "                                     Delete Word" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
 
+  std::cout << "Word Tree:" << std::endl;
+  WORD_TREE.print();
+  std::cout << std::endl;
+
   std::cout << "Enter the word you want to delete: ";
   terminology = util::input_word();
 
@@ -271,7 +278,9 @@ void update_word() {
   std::cout << "                                     Update Word" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
 
-  print_tree();
+  std::cout << "Word Tree:" << std::endl;
+  WORD_TREE.print();
+  std::cout << std::endl;
 
   std::cout << "Enter the word you want to update: " << std::endl;
 

@@ -42,6 +42,15 @@ void word::display() const {
 }
 
 
+
+void word::operator()(const std::string & term, const std::string & definition) {
+  this->term = term;
+  this->definition = definition;
+
+  std::transform(this->term.begin(), this->term.end(), this->term.begin(),
+    [](unsigned char c) {return std::tolower(c);} );
+}
+
 bool word::operator==(const word & other) const {
   return term == other.term;
 }
