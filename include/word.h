@@ -21,7 +21,7 @@ class word {
     std::string term;
     std::string definition;
 
-    ds::list<ds::bst<std::string>::Node *> similar_words;
+    ds::list<word> synonym_list;
 
   public:
     word();
@@ -32,8 +32,10 @@ class word {
     std::string get_definition() const;
     void set_term(const std::string & term);
     void set_definition(const std::string & definition);
-    void set_similar_words(const ds::list<ds::bst<std::string>::Node *> similar_words);
+    void set_synonym_list(const ds::list<word> synonym_list);
+    void insert_synonym(const word & synonym);
     void display() const;
+    bool is_empty() const;
 
     void operator()(const std::string & term, const std::string & definition);
     bool operator==(const word & other) const;

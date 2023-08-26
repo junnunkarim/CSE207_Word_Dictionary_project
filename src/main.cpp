@@ -17,8 +17,11 @@ void print_suggestions_helper(
   ds::list<string> & suggestion_list,
   std::string matching_substr);
 void print_suggestions(word & search);
+void add_synonym(string terminology);
 
-void add_word_helper();
+void add_word_helper(std::string message,
+  bool synonym = false,
+  word defined_word = {});
 
 void add_word();
 void search_word();
@@ -198,27 +201,64 @@ void print_suggestions(word & search) {
     }
     std::cout << " ]";
   }
-
   //std::cout << std::endl;
   //suggestion_list.print();
+}
+
+void add_synonym(string terminology) {
+  std::string message = "Do you want to add synonym to the word '" + terminology + "' (Yes/No): ";
+
+  if(util::confirmation_check(message)) {
+    std::string message_next = "Enter the synonym: ";
+    std::string message_next_2 = "Enter the synonym you want to add: ";
+    std::string synonym;
+    bool quit = false;
+
+    do {
+      synonym = util::input_word(message_next);
+
+      word synonym_word(synonym, {});
+      word * word_found = WORD_TREE.search(synonym_word);
+
+      if(!word_found) {
+        std::string msg = "The word '" + synonym +
+          "' is not found in the Binary Search Tree!\n" +
+          "Would you like to add it (Yes/No)? ";
+
+        if(util::confirmation_check(msg)) {
+          add_word_helper({}, true, msg);
+        }
+        else
+      }
+
+    } while(!quit);
+  }
 }
 //------------------------------------------------//
 //################################################//
 
 
-void add_word_helper() {
-  std::string terminology = {};
-  std::string definition = {};
+void add_word_helper(std::string message,
+  bool synonym,
+  word defined_word) {
 
-  terminology = util::input_word();
+  if(defined_word.is_empty() || !synonym) {
+    //std::cout << message;
+    std::string terminology = util::input_word(message);
 
-  std::cout << "Enter the definition of the word: " << std::endl;
-  definition = util::input_sentence();
+    std::cout << "Enter the definition of the word: " << std::endl;
+    definition = util::input_sentence();
+    add_synonym(terminology);
+  }
 
   // instantiate a word object named 'new_word'
   word new_word(terminology, definition);
 
   if (WORD_TREE.insert(new_word)) {
+    if(synonym) {
+
+    }
+
     std::cout << std::endl;
     std::cout << "Added the word '" << terminology << "' to the Binary Search Tree." << std::endl;
 
@@ -239,22 +279,22 @@ void add_word() {
 
   std::cout << "                                        Add Word" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
+  std::string message = "Enter the word you want to add: ";
 
-  std::cout << "Enter the word you want to add: ";
-  add_word_helper();
+  add_word_helper(message);
 }
 
 void search_word() {
   util::clear_screen();
 
   std::string target_str = {};
+  std::string message = "Enter the word you want to search: ";
   ds::bst<word>::Node * root = WORD_TREE.get_root();
 
   std::cout << "                                          Search" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
 
-  std::cout << "Enter the word you want to search: ";
-  target_str = util::input_word();
+  target_str = util::input_word(message);
 
   // instantiate a word object named 'target'
   word target(target_str, {});
@@ -282,6 +322,7 @@ void delete_word() {
   util::clear_screen();
 
   std::string terminology = {};
+  std::string message = "Enter the word you want to delete: ";
 
   std::cout << "                                     Delete Word" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
@@ -290,8 +331,7 @@ void delete_word() {
   WORD_TREE.print();
   std::cout << std::endl;
 
-  std::cout << "Enter the word you want to delete: ";
-  terminology = util::input_word();
+  terminology = util::input_word(message);
 
   word new_word(terminology, {});
 
@@ -321,6 +361,7 @@ void update_word() {
 
   std::string target_terminology = {};
   std::string terminology = {};
+  std::string message = "Enter the word you want to update: ";
 
   std::cout << "                                     Update Word" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
@@ -329,9 +370,7 @@ void update_word() {
   WORD_TREE.print();
   std::cout << std::endl;
 
-  std::cout << "Enter the word you want to update: " << std::endl;
-
-  target_terminology = util::input_word();
+  target_terminology = util::input_word(message);
   word target_word(target_terminology, {});
 
   if(!WORD_TREE.search(target_word)) {
@@ -341,6 +380,7 @@ void update_word() {
   }
   else {
     word word_to_delete = WORD_TREE.search_node(target_word)->data;
+    std::string message_next = "Enter the updated word";
 
     std::cout << std::endl;
     std::cout << "Updating the following word:" << std::endl;
@@ -350,8 +390,7 @@ void update_word() {
     WORD_TREE.remove(word_to_delete);
 
     std::cout << std::endl;
-    std::cout << "Enter the updated word: ";
-    add_word_helper();
+    add_word_helper(message_next);
   }
 }
 

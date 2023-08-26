@@ -77,6 +77,16 @@ namespace util {
     std::getline(std::cin, line); // wait for Enter key
   }
 
+  std::string to_lowercase(const std::string & str) {
+    std::string lowercase = str;
+
+    // convert the input string to lowercase using lamda function
+    std::transform(lowercase.begin(), lowercase.end(), lowercase.begin(),
+      [](unsigned char c) {return std::tolower(c);} );
+
+    return lowercase;
+  }
+
   void clear_screen() {
     #ifdef _WIN32
       system("cls"); // clear the screen on windows
@@ -94,12 +104,13 @@ namespace util {
     return true; // All characters are alphabetic
   }
 
-  std::string input_word() {
+  std::string input_word(string message) {
     std::string str = {};
 
     // take input until string contains only alphabets
     do {
       //std::cout << "Enter a word: " << std::endl;
+      std::cout << message;
       std::cin >> str;
 
       clear_input_buffer();
@@ -111,16 +122,14 @@ namespace util {
 
         wait_for_input();
 
-        std::cout << "Please enter a new word: ";
+        std::cout << message;
       }
       else {
         break;
       }
     } while(true);
 
-    // convert the input string to lowercase using lamda function
-    std::transform(str.begin(), str.end(), str.begin(),
-      [](unsigned char c) {return std::tolower(c);} );
+    str = to_lowercase(str);
 
     return str;
   }
@@ -131,6 +140,22 @@ namespace util {
 
     return sentence;
   }
+}
+
+bool confirmation_check(std::string message) {
+  std::string confirmation;
+
+  do {
+    confirmation = util::input_word(message);
+
+    if(confirmation == "y" || confirmation == "yes")
+      return true;
+    else if(confirmation == "n" || confirmation == "no")
+      return true;
+    else {
+      std::cout << "Please answer with either `yes` or `no`!" << std::endl;
+    }
+  } while(true);
 }
 
 #endif

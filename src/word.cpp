@@ -32,15 +32,29 @@ void word::set_definition(const std::string & definition) {
   this->definition = definition;
 }
 
-void word::set_similar_words(const ds::list<ds::bst<std::string>::Node *> similar_words) {
-  this->similar_words = similar_words;
+void word::set_synonym_list(const ds::list<word> synonym_list) {
+  this->synonym_list = synonym_list;
+}
+
+void word::insert_synonym(const word & synonym) {
+  synonym_list.insert_back(synonym);
 }
 
 void word::display() const {
   std::cout << "\t" << term << " -" << endl;
-  std::cout << "\t\t" << "definition: " << definition << endl;
+
+  if(definition.empty())
+    std::cout << "\t\t" << "definition: " << definition << endl;
+  else
+    std::cout << "\t\t" << "definition: " << "No definition found!" << endl;
 }
 
+bool word::is_empty() const {
+  if(term.empty() && definition.empty())
+    return true;
+  else
+    return false;
+}
 
 
 void word::operator()(const std::string & term, const std::string & definition) {

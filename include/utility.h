@@ -11,10 +11,12 @@ namespace util {
   void store_database();
   void clear_input_buffer();
   void wait_for_input();
+  std::string to_lowercase(const std::string & str);
   void clear_screen();
   bool word_is_alpha(const std::string & word);
-  std::string input_word();
+  std::string input_word(string message);
   std::string input_sentence();
+  bool confirmation_check(std::string message);
 }
 
 #endif
