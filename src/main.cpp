@@ -12,7 +12,10 @@
 void print_menu();
 int choice();
 ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index);
-void print_suggestions_helper(ds::bst<word>::Node * subtree);
+void print_suggestions_helper(
+  const ds::bst<word>::Node * subtree,
+  ds::list<string> & suggestion_list,
+  std::string matching_substr);
 void print_suggestions(word & search);
 
 void add_word_helper();
@@ -121,7 +124,27 @@ ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char &
   }
 }
 
-void print_suggestions_helper(ds::bst<word>::Node * subtree) {
+void print_suggestions_helper(
+  const ds::bst<word>::Node * subtree,
+  ds::list<string> & suggestion_list,
+  std::string matching_substr) {
+
+  try {
+    if (!subtree) {
+      return;
+    }
+
+    print_suggestions_helper(subtree->left.get(), suggestion_list, matching_substr);
+
+    print_suggestions_helper(subtree->right.get(), suggestion_list, matching_substr);
+
+    if(subtree->data.get_term().find(matching_substr) == 0) {
+        suggestion_list.insert_front(subtree->data.get_term());
+    }
+  }
+  catch (const exception & e) {
+    std::cerr << "Exception occured : " << e.what() << std::endl;
+  }
 }
 
 void print_suggestions(word & search) {
@@ -151,8 +174,33 @@ void print_suggestions(word & search) {
     }
   }
 
-  cout << "current_node " << current_node -> data;
-  //print_suggestions_helper(current_node, matching_substr);
+  int count = 5;
+  ds::list<string> suggestion_list;
+
+  print_suggestions_helper(current_node, suggestion_list, matching_substr);
+
+  std::cout << "                                     Suggestions" << std::endl;
+  std::cout << "────────────────────────────────────────────────" << std::endl;
+  std::cout << "The word '" << search << "' was not found!" << std::endl << std::endl;
+
+  if(suggestion_list.get_size() < count)
+    count = suggestion_list.get_size();
+
+  if(suggestion_list.get_size() != 0) {
+    std::cout << "Did you mean:" << std::endl;
+
+    std::cout << "[ ";
+    for(int index = 0; index < count; index++) {
+      std::cout << suggestion_list[index];
+
+      if(index != count - 1)
+        std::cout << ", ";
+    }
+    std::cout << " ]";
+  }
+
+  //std::cout << std::endl;
+  //suggestion_list.print();
 }
 //------------------------------------------------//
 //################################################//
@@ -214,8 +262,7 @@ void search_word() {
 
   if(root != nullptr) {
     if(found_node == nullptr) {
-      std::cout << "The word '" << target_str << "' was not found." << std::endl;
-
+      //std::cout << "The word '" << target_str << "' was not found." << std::endl;
       print_suggestions(target);
 
       util::wait_for_input();
