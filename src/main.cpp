@@ -135,7 +135,6 @@ void print_suggestions_helper(
     }
 
     print_suggestions_helper(subtree->left.get(), suggestion_list, matching_substr);
-
     print_suggestions_helper(subtree->right.get(), suggestion_list, matching_substr);
 
     if(subtree->data.get_term().find(matching_substr) == 0) {

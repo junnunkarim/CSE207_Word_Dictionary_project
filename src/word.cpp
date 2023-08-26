@@ -32,10 +32,6 @@ void word::set_definition(const std::string & definition) {
   this->definition = definition;
 }
 
-void word::set_similar_words(const ds::list<ds::bst<std::string>::Node *> similar_words) {
-  this->similar_words = similar_words;
-}
-
 void word::display() const {
   std::cout << "\t" << term << " -" << endl;
   std::cout << "\t\t" << "definition: " << definition << endl;
