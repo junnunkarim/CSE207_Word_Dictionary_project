@@ -7,8 +7,10 @@
 
 namespace util {
   ds::list<string> str_split(string line, char delimeter);
+  void load_database_helper(ds::bst<word>::Node * node, std::ofstream * output_file_ptr);
   void load_database(ds::bst<word> & WORD_TREE);
-  void store_database();
+  void store_database_helper(ds::bst<word>::Node * node, std::ofstream * output_file_ptr);
+  void store_database(ds::bst<word> & WORD_TREE);
   void clear_input_buffer();
   void wait_for_input();
   void clear_screen();

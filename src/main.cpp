@@ -54,6 +54,7 @@ int main() {
         break;
       case 6:
         util::clear_screen();
+        util::store_database(WORD_TREE);
         exit(0);
       default:
         cout << "Invalid input!" << endl;

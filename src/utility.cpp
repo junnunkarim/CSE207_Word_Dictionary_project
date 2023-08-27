@@ -61,6 +61,33 @@ namespace util {
     }
   }
 
+  void store_database_helper(ds::bst<word>::Node * node, std::ofstream * output_file_ptr) {
+    if (node == nullptr)
+      return;
+
+    store_database_helper(node -> left.get(), output_file_ptr);
+    (*output_file_ptr) << node->data.get_term() << "|" << node->data.get_definition() << "\n";
+    store_database_helper(node -> right.get(), output_file_ptr);
+
+  }
+
+  void store_database(ds::bst<word> & WORD_TREE) {
+    std::string filename = "../data/database";
+
+    std::ofstream output_file(filename);
+
+    if(!output_file) {
+      std::cerr << "Error loading database from file!" << std::endl;
+
+      wait_for_input();
+    }
+    else {
+      store_database_helper(WORD_TREE.get_root(), &output_file);
+
+      output_file.close();
+    }
+  }
+
   void clear_input_buffer() {
     // Clear the input buffer
     std::cin.clear();
