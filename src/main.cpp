@@ -155,6 +155,10 @@ void print_suggestions(word & search) {
   ds::bst<word>::Node * current_node = WORD_TREE.get_root();
   ds::bst<word>::Node * temp_node = nullptr;
 
+  std::cout << "                                     Suggestions" << std::endl;
+  std::cout << "────────────────────────────────────────────────" << std::endl;
+  std::cout << "The word '" << search << "' was not found!" << std::endl << std::endl;
+
   for(int i = 0; i < target_str.size(); i++) {
     char letter = target_str[i];
 
@@ -178,10 +182,6 @@ void print_suggestions(word & search) {
   ds::list<string> suggestion_list;
 
   print_suggestions_helper(current_node, suggestion_list, matching_substr);
-
-  std::cout << "                                     Suggestions" << std::endl;
-  std::cout << "────────────────────────────────────────────────" << std::endl;
-  std::cout << "The word '" << search << "' was not found!" << std::endl << std::endl;
 
   if(suggestion_list.get_size() < count)
     count = suggestion_list.get_size();
