@@ -33,8 +33,8 @@ void word::set_definition(const std::string & definition) {
 }
 
 void word::display() const {
-  std::cout << "\t" << term << " -" << endl;
-  std::cout << "\t\t" << "definition: " << definition << endl;
+  std::cout << "\t" << term << " -" << std::endl;
+  std::cout << "\t\t" << "definition: " << definition << std::endl;
 }
 
 
@@ -60,7 +60,7 @@ bool word::operator>(const word & other) const {
   return term > other.term;
 }
 
-ostream & operator<<(ostream & os, const word & w) {
+std::ostream & operator<<(std::ostream & os, const word & w) {
   os << w.term;
 
   return os;

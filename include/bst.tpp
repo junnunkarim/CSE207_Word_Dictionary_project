@@ -2,12 +2,11 @@
 #define BST_TPP
 
 #include "bst.h"
+
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 #include <limits> // for clearing input buffer
-
-using namespace std;
-
 
 namespace ds {
   template <typename T>
@@ -24,10 +23,10 @@ namespace ds {
 
 
   template <typename T>
-  bool bst<T>::insert_helper(unique_ptr<typename bst<T>::Node> & node, const T & value) {
+  bool bst<T>::insert_helper(std::unique_ptr<typename bst<T>::Node> & node, const T & value) {
     try {
       if(!node) {
-        node = make_unique<typename bst<T>::Node>(value);
+        node = std::make_unique<typename bst<T>::Node>(value);
         return true;
       }
 
@@ -41,14 +40,14 @@ namespace ds {
         return false;
       }
     }
-    catch(const bad_alloc & e) {
-      cerr << "Memory allocation failed: " << e.what() << std::endl;
+    catch(const std::bad_alloc & e) {
+      std::cerr << "Memory allocation failed: " << e.what() << std::endl;
       return false;
     }
   }
 
   template <typename T>
-  typename bst<T>::Node * bst<T>::search_helper(const unique_ptr<typename bst<T>::Node> & node, const T & key) const {
+  typename bst<T>::Node * bst<T>::search_helper(const std::unique_ptr<typename bst<T>::Node> & node, const T & key) const {
     try {
       if (!node) {
         return nullptr;
@@ -64,14 +63,14 @@ namespace ds {
         return node.get();
       }
     }
-    catch (const exception & e) {
-      cerr << "Exception occured : " << e.what() << std::endl;
+    catch (const std::exception & e) {
+      std::cerr << "Exception occured : " << e.what() << std::endl;
       return nullptr;
     }
   }
 
   template <typename T>
-  bool bst<T>::remove_helper(unique_ptr<typename bst<T>::Node> & node, const T & value) {
+  bool bst<T>::remove_helper(std::unique_ptr<typename bst<T>::Node> & node, const T & value) {
     try {
       if (!node) {
         return false;
@@ -101,8 +100,8 @@ namespace ds {
         return true;
       }
     }
-    catch (const exception & e) {
-      cerr << "Exception occured: " << e.what() << std::endl;
+    catch (const std::exception & e) {
+      std::cerr << "Exception occured: " << e.what() << std::endl;
       return false;
     }
   }
@@ -134,8 +133,8 @@ namespace ds {
       }
       return false;
     }
-    catch (const bad_alloc & e) {
-      cerr << "Memory allocation failed: " << e.what() << std::endl;
+    catch (const std::bad_alloc & e) {
+      std::cerr << "Memory allocation failed: " << e.what() << std::endl;
       return false;
     }
   }
@@ -156,8 +155,8 @@ namespace ds {
     try {
       return & search_helper(root, key)->data;
     }
-    catch (const exception & e) {
-      cerr << "Exception occured : " << e.what() << std::endl;
+    catch (const std::exception & e) {
+      std::cerr << "Exception occured : " << e.what() << std::endl;
       return nullptr;
     }
   }
@@ -167,8 +166,8 @@ namespace ds {
     try {
       return search_helper(root, key);
     }
-    catch(const exception & e) {
-      cerr << "Exception occured : " << e.what() << std::endl;
+    catch(const std::exception & e) {
+      std::cerr << "Exception occured : " << e.what() << std::endl;
       return nullptr;
     }
   }
@@ -182,8 +181,8 @@ namespace ds {
       }
       return false;
     }
-    catch (const exception & e) {
-      cerr << "Exception occured: " << e.what() << std::endl;
+    catch (const std::exception & e) {
+      std::cerr << "Exception occured: " << e.what() << std::endl;
       return false;
     }
   }
@@ -195,7 +194,7 @@ namespace ds {
   }
 
   template <typename T>
-  bool bst<T>::is_full_helper(const unique_ptr<bst<T>::Node> & node) const {
+  bool bst<T>::is_full_helper(const std::unique_ptr<bst<T>::Node> & node) const {
     try {
       if(!node)
         return true;
@@ -203,8 +202,8 @@ namespace ds {
         return false;
       return is_full_helper(node->left) && is_full_helper(node->right);
     }
-    catch (const exception & e) {
-      cerr << "Exception occured: " << e.what() << std::endl;
+    catch (const std::exception & e) {
+      std::cerr << "Exception occured: " << e.what() << std::endl;
     }
   }
 
@@ -213,8 +212,8 @@ namespace ds {
     try {
       return is_full_helper(root);
     }
-    catch (const exception & e) {
-      cerr << "Exception occured: " << e.what() << std::endl;
+    catch (const std::exception & e) {
+      std::cerr << "Exception occured: " << e.what() << std::endl;
     }
   }
 

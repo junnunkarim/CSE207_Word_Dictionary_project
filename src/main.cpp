@@ -1,8 +1,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include <vector> // for std::vector
-#include <stack> // for std::stack
 
 #include "../include/bst.h"
 #include "../include/word.h"
@@ -14,7 +12,7 @@ int choice();
 ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index);
 void print_suggestions_helper(
   const ds::bst<word>::Node * subtree,
-  ds::list<string> * suggestion_list,
+  ds::list<std::string> * suggestion_list,
   std::string matching_substr);
 void print_suggestions(word * search);
 
@@ -57,7 +55,7 @@ int main() {
         util::save_changes(&WORD_TREE);
         exit(0);
       default:
-        cout << "Invalid input!" << endl;
+        std::cout << "Invalid input!" << std::endl;
         break;
     }
   }
@@ -70,14 +68,14 @@ int main() {
 void print_menu() {
   util::clear_screen();
 
-  std::cout << "                                 Word Dictionary" << endl;
+  std::cout << "                                 Word Dictionary" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
-  std::cout << "1. Add Word" << endl;
-  std::cout << "2. Search Word" << endl;
-  std::cout << "3. Delete Word" << endl;
-  std::cout << "4. Update Word" << endl;
-  std::cout << "5. Display Word-Tree" << endl;
-  std::cout << "6. Quit" << endl;
+  std::cout << "1. Add Word" << std::endl;
+  std::cout << "2. Search Word" << std::endl;
+  std::cout << "3. Delete Word" << std::endl;
+  std::cout << "4. Update Word" << std::endl;
+  std::cout << "5. Display Word-Tree" << std::endl;
+  std::cout << "6. Quit" << std::endl;
   std::cout << std::endl;
 }
 
@@ -107,7 +105,7 @@ ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char &
       return nullptr;
     }
 
-    string current_word = node->data;
+    std::string current_word = node->data;
 
     if ( (index + 1) > current_word.size() || letter > current_word[index]) {
       return find_closest_node(node->right.get(), letter, index);
@@ -119,15 +117,15 @@ ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char &
       return node;
     }
   }
-  catch (const exception & e) {
-    cerr << "Exception occured : " << e.what() << std::endl;
+  catch (const std::exception & e) {
+    std::cerr << "Exception occured : " << e.what() << std::endl;
     return nullptr;
   }
 }
 
 void print_suggestions_helper(
   const ds::bst<word>::Node * subtree,
-  ds::list<string> * suggestion_list,
+  ds::list<std::string> * suggestion_list,
   std::string matching_substr) {
 
   try {
@@ -142,7 +140,7 @@ void print_suggestions_helper(
         (*suggestion_list).insert_front(subtree->data.get_term());
     }
   }
-  catch (const exception & e) {
+  catch (const std::exception & e) {
     std::cerr << "Exception occured : " << e.what() << std::endl;
   }
 }
@@ -150,8 +148,8 @@ void print_suggestions_helper(
 void print_suggestions(word * search) {
   util::clear_screen();
 
-  string target_str = *search;
-  string matching_substr = "";
+  std::string target_str = *search;
+  std::string matching_substr = "";
   ds::bst<word>::Node * current_node = WORD_TREE.get_root();
   ds::bst<word>::Node * temp_node = nullptr;
 
@@ -177,7 +175,7 @@ void print_suggestions(word * search) {
   }
 
   int suggestion_count = 5;
-  ds::list<string> suggestion_list;
+  ds::list<std::string> suggestion_list;
 
   print_suggestions_helper(current_node, &suggestion_list, matching_substr);
 

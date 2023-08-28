@@ -2,11 +2,12 @@
 #define UTILITY_H
 
 #include <string>
+
 #include "bst.h"
 #include "word.h"
 
 namespace util {
-  ds::list<string> str_split(std::string *line, char delimeter);
+  ds::list<std::string> str_split(std::string *line, char delimeter);
   void load_database(ds::bst<word> * WORD_TREE);
   void store_database_helper(ds::bst<word>::Node * node, std::ofstream * output_file_ptr);
   void store_database(ds::bst<word> * WORD_TREE);

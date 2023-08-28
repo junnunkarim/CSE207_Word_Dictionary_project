@@ -10,7 +10,6 @@
 #ifndef WORD_H
 #define WORD_H
 
-#include <memory>
 #include <string>
 
 #include "bst.h"
@@ -37,7 +36,7 @@ class word {
     bool operator!=(const word & other) const;
     bool operator<(const word & other) const;
     bool operator>(const word & other) const;
-    friend ostream& operator<<(ostream& os, const word& w);
+    friend std::ostream& operator<<(std::ostream& os, const word& w);
 
     operator std::string() const;
 };

@@ -9,9 +9,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <iostream>
-#include <cstddef>
-
 namespace ds {
   template <typename T>
   class list {

@@ -14,7 +14,7 @@
 #include "../include/utility.h"
 
 namespace util {
-  ds::list<string> str_split(std::string * line, char delimeter) {
+  ds::list<std::string> str_split(std::string * line, char delimeter) {
     std::istringstream line_stream(*line);
     std::string token = {};
     ds::list<std::string> token_list;
@@ -41,7 +41,7 @@ namespace util {
       char delimeter = '|';
 
       while(std::getline(input_file, line)) {
-        ds::list<string> token_list = str_split(&line, delimeter);
+        ds::list<std::string> token_list = str_split(&line, delimeter);
         word new_word;
 
         if(token_list.get_size() == 1) {
@@ -91,10 +91,13 @@ namespace util {
   void save_changes(ds::bst<word> * WORD_TREE) {
     std::string message = "Do you want to save the changes to the Binary Search Tree (Yes/No): ";
 
-    if(util::confirmation_check(&message))
+    if(util::confirmation_check(&message)) {
       util::store_database(WORD_TREE);
-    else
+      std::cout << "Changes were saved." << std::endl;
+    }
+    else {
       std::cout << "Changes were not saved." << std::endl;
+    }
   }
 
   void clear_input_buffer() {
