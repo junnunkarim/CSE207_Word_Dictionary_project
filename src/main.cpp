@@ -14,11 +14,11 @@ int choice();
 ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index);
 void print_suggestions_helper(
   const ds::bst<word>::Node * subtree,
-  ds::list<string> & suggestion_list,
+  ds::list<string> * suggestion_list,
   std::string matching_substr);
-void print_suggestions(word & search);
+void print_suggestions(word * search);
 
-void add_word_helper();
+void add_word_helper(std::string * message);
 
 void add_word();
 void search_word();
@@ -31,7 +31,7 @@ static ds::bst<word> WORD_TREE;
 
 
 int main() {
-  util::load_database(WORD_TREE);
+  util::load_database(&WORD_TREE);
 
   while(1) {
     print_menu();
@@ -54,7 +54,7 @@ int main() {
         break;
       case 6:
         util::clear_screen();
-        util::store_database(WORD_TREE);
+        util::save_changes(&WORD_TREE);
         exit(0);
       default:
         cout << "Invalid input!" << endl;
@@ -127,7 +127,7 @@ ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char &
 
 void print_suggestions_helper(
   const ds::bst<word>::Node * subtree,
-  ds::list<string> & suggestion_list,
+  ds::list<string> * suggestion_list,
   std::string matching_substr) {
 
   try {
@@ -139,7 +139,7 @@ void print_suggestions_helper(
     print_suggestions_helper(subtree->right.get(), suggestion_list, matching_substr);
 
     if(subtree->data.get_term().find(matching_substr) == 0) {
-        suggestion_list.insert_front(subtree->data.get_term());
+        (*suggestion_list).insert_front(subtree->data.get_term());
     }
   }
   catch (const exception & e) {
@@ -147,17 +147,17 @@ void print_suggestions_helper(
   }
 }
 
-void print_suggestions(word & search) {
+void print_suggestions(word * search) {
   util::clear_screen();
 
-  string target_str = search;
+  string target_str = *search;
   string matching_substr = "";
   ds::bst<word>::Node * current_node = WORD_TREE.get_root();
   ds::bst<word>::Node * temp_node = nullptr;
 
   std::cout << "                                     Suggestions" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
-  std::cout << "The word '" << search << "' was not found!" << std::endl << std::endl;
+  std::cout << "The word '" << *search << "' was not found!" << std::endl << std::endl;
 
   for(int i = 0; i < target_str.size(); i++) {
     char letter = target_str[i];
@@ -165,8 +165,6 @@ void print_suggestions(word & search) {
     temp_node = find_closest_node(current_node, letter, i);
 
     if(temp_node == nullptr && i == 0) {
-      //std::cout << "No closest suggestions of '" << search << "' was found.";
-
       return;
     }
     else if(temp_node == nullptr) {
@@ -178,56 +176,57 @@ void print_suggestions(word & search) {
     }
   }
 
-  int count = 5;
+  int suggestion_count = 5;
   ds::list<string> suggestion_list;
 
-  print_suggestions_helper(current_node, suggestion_list, matching_substr);
+  print_suggestions_helper(current_node, &suggestion_list, matching_substr);
 
-  if(suggestion_list.get_size() < count)
-    count = suggestion_list.get_size();
+  if(suggestion_list.get_size() < suggestion_count)
+    suggestion_count = suggestion_list.get_size();
 
   if(suggestion_list.get_size() != 0) {
     std::cout << "Did you mean:" << std::endl;
 
     std::cout << "[ ";
-    for(int index = 0; index < count; index++) {
+    for(int index = 0; index < suggestion_count; index++) {
       std::cout << suggestion_list[index];
 
-      if(index != count - 1)
+      if(index != suggestion_count - 1)
         std::cout << ", ";
     }
     std::cout << " ]";
   }
-
-  //std::cout << std::endl;
-  //suggestion_list.print();
 }
 //------------------------------------------------//
 //################################################//
 
 
-void add_word_helper() {
-  std::string terminology = {};
-  std::string definition = {};
-
-  terminology = util::input_word();
+void add_word_helper(std::string * message) {
+  std::string terminology = util::input_word(message);
 
   std::cout << "Enter the definition of the word: " << std::endl;
-  definition = util::input_sentence();
+  std::string definition = util::input_sentence();
 
   // instantiate a word object named 'new_word'
   word new_word(terminology, definition);
 
-  if (WORD_TREE.insert(new_word)) {
-    std::cout << std::endl;
-    std::cout << "Added the word '" << terminology << "' to the Binary Search Tree." << std::endl;
+  if(WORD_TREE.search(new_word) == nullptr) {
+    if (WORD_TREE.insert(new_word)) {
+      std::cout << std::endl;
+      std::cout << "Added the word '" << terminology << "' to the Binary Search Tree." << std::endl;
 
-    util::wait_for_input();
+      util::wait_for_input();
 
-    return;
+      return;
+    }
+    else {
+      std::cout << "Error! Could not add the word '" << terminology << "'." << std::endl;
+    }
   }
   else {
-    std::cout << "Error! Could not add the word '" << terminology << "'." << std::endl;
+    std::cout << "Could not add '" << terminology << "'! It is already in the BST!" << std::endl;
+
+    util::wait_for_input();
   }
 }
 
@@ -240,8 +239,9 @@ void add_word() {
   std::cout << "                                        Add Word" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
 
-  std::cout << "Enter the word you want to add: ";
-  add_word_helper();
+  std::string message = "Enter the word you want to add: ";
+
+  add_word_helper(&message);
 }
 
 void search_word() {
@@ -253,8 +253,8 @@ void search_word() {
   std::cout << "                                          Search" << std::endl;
   std::cout << "────────────────────────────────────────────────" << std::endl;
 
-  std::cout << "Enter the word you want to search: ";
-  target_str = util::input_word();
+  std::string message = "Enter the word you want to search: ";
+  target_str = util::input_word(&message);
 
   // instantiate a word object named 'target'
   word target(target_str, {});
@@ -263,7 +263,7 @@ void search_word() {
   if(root != nullptr) {
     if(found_node == nullptr) {
       //std::cout << "The word '" << target_str << "' was not found." << std::endl;
-      print_suggestions(target);
+      print_suggestions(&target);
 
       util::wait_for_input();
     }
@@ -290,8 +290,8 @@ void delete_word() {
   WORD_TREE.print();
   std::cout << std::endl;
 
-  std::cout << "Enter the word you want to delete: ";
-  terminology = util::input_word();
+  std::string message = "Enter the word you want to delete: ";
+  terminology = util::input_word(&message);
 
   word new_word(terminology, {});
 
@@ -301,17 +301,22 @@ void delete_word() {
     util::wait_for_input();
   }
   else {
-    if (WORD_TREE.remove(new_word)) {
-      std::cout << "The word '" << terminology << "' was deleted successfully!" << std::endl;
+    std::string message = "Are you sure you want to delete the word '" + terminology + "' (Yes/No): ";
 
-      util::wait_for_input();
+    if(util::confirmation_check(&message)) {
+      if (WORD_TREE.remove(new_word)) {
+        std::cout << std::endl;
+        std::cout << "The word '" << terminology << "' was deleted successfully!" << std::endl;
 
-      return;
-    }
-    else {
-      std::cout << "Error! The word '" << terminology << "' could not be deleted!" << std::endl;
+        util::wait_for_input();
 
-      util::wait_for_input();
+        return;
+      }
+      else {
+        std::cout << "Error! The word '" << terminology << "' could not be deleted!" << std::endl;
+
+        util::wait_for_input();
+      }
     }
   }
 }
@@ -329,9 +334,10 @@ void update_word() {
   WORD_TREE.print();
   std::cout << std::endl;
 
-  std::cout << "Enter the word you want to update: " << std::endl;
 
-  target_terminology = util::input_word();
+  std::string message = "Enter the word you want to update: ";
+  target_terminology = util::input_word(&message);
+
   word target_word(target_terminology, {});
 
   if(!WORD_TREE.search(target_word)) {
@@ -350,8 +356,8 @@ void update_word() {
     WORD_TREE.remove(word_to_delete);
 
     std::cout << std::endl;
-    std::cout << "Enter the updated word: ";
-    add_word_helper();
+    message = "Enter the updated word: ";
+    add_word_helper(&message);
   }
 }
 

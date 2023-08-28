@@ -14,8 +14,8 @@
 #include "../include/utility.h"
 
 namespace util {
-  ds::list<string> str_split(string line, char delimeter) {
-    std::istringstream line_stream(line);
+  ds::list<string> str_split(std::string * line, char delimeter) {
+    std::istringstream line_stream(*line);
     std::string token = {};
     ds::list<std::string> token_list;
 
@@ -26,7 +26,7 @@ namespace util {
     return token_list;
   }
 
-  void load_database(ds::bst<word> & WORD_TREE) {
+  void load_database(ds::bst<word> * WORD_TREE) {
     std::string filename = "../data/database";
 
     std::ifstream input_file(filename);
@@ -41,7 +41,7 @@ namespace util {
       char delimeter = '|';
 
       while(std::getline(input_file, line)) {
-        ds::list<string> token_list = str_split(line, delimeter);
+        ds::list<string> token_list = str_split(&line, delimeter);
         word new_word;
 
         if(token_list.get_size() == 1) {
@@ -54,8 +54,7 @@ namespace util {
           break;
         }
 
-        WORD_TREE.insert(new_word);
-        //WORD_TREE.print();
+        (*WORD_TREE).insert(new_word);
       }
       input_file.close();
     }
@@ -65,13 +64,14 @@ namespace util {
     if (node == nullptr)
       return;
 
-    store_database_helper(node -> left.get(), output_file_ptr);
+    // pre-order traversal
     (*output_file_ptr) << node->data.get_term() << "|" << node->data.get_definition() << "\n";
+    store_database_helper(node -> left.get(), output_file_ptr);
     store_database_helper(node -> right.get(), output_file_ptr);
 
   }
 
-  void store_database(ds::bst<word> & WORD_TREE) {
+  void store_database(ds::bst<word> * WORD_TREE) {
     std::string filename = "../data/database";
 
     std::ofstream output_file(filename);
@@ -82,10 +82,19 @@ namespace util {
       wait_for_input();
     }
     else {
-      store_database_helper(WORD_TREE.get_root(), &output_file);
+      store_database_helper((*WORD_TREE).get_root(), &output_file);
 
       output_file.close();
     }
+  }
+
+  void save_changes(ds::bst<word> * WORD_TREE) {
+    std::string message = "Do you want to save the changes to the Binary Search Tree (Yes/No): ";
+
+    if(util::confirmation_check(&message))
+      util::store_database(WORD_TREE);
+    else
+      std::cout << "Changes were not saved." << std::endl;
   }
 
   void clear_input_buffer() {
@@ -104,6 +113,16 @@ namespace util {
     std::getline(std::cin, line); // wait for Enter key
   }
 
+  std::string to_lowercase(const std::string * str) {
+    std::string lowercase = *str;
+
+    // convert the input string to lowercase using lamda function
+    std::transform(lowercase.begin(), lowercase.end(), lowercase.begin(),
+      [](unsigned char c) {return std::tolower(c);} );
+
+    return lowercase;
+  }
+
   void clear_screen() {
     #ifdef _WIN32
       system("cls"); // clear the screen on windows
@@ -112,8 +131,8 @@ namespace util {
     #endif
   }
 
-  bool word_is_alpha(const std::string & word) {
-    for (char c : word) {
+  bool word_is_alpha(const std::string * word) {
+    for (char c : (*word)) {
       if (!std::isalpha(c)) {
           return false; // If a non-alphabetic character is found, return false
       }
@@ -121,33 +140,33 @@ namespace util {
     return true; // All characters are alphabetic
   }
 
-  std::string input_word() {
+  std::string input_word(std::string * message) {
     std::string str = {};
 
     // take input until string contains only alphabets
     do {
-      //std::cout << "Enter a word: " << std::endl;
+      if(message == nullptr)
+        std::cout << "Enter a word: " << std::endl;
+      else
+        std::cout << (*message);
+
       std::cin >> str;
 
       clear_input_buffer();
 
-      if(!word_is_alpha(str)) {
+      if(!word_is_alpha(&str)) {
         std::cout << std::endl;
         std::cout << "Error! Word should only contain Alphabets!" << std::endl;
         std::cout << "Please try again!" << std::endl;
 
         wait_for_input();
-
-        std::cout << "Please enter a new word: ";
       }
       else {
         break;
       }
     } while(true);
 
-    // convert the input string to lowercase using lamda function
-    std::transform(str.begin(), str.end(), str.begin(),
-      [](unsigned char c) {return std::tolower(c);} );
+    str = to_lowercase(&str);
 
     return str;
   }
@@ -157,6 +176,22 @@ namespace util {
     std::getline(std::cin, sentence);
 
     return sentence;
+  }
+
+  bool confirmation_check(std::string * message) {
+    std::string confirmation;
+
+    do {
+      confirmation = util::input_word(message);
+
+      if(confirmation == "y" || confirmation == "yes")
+        return true;
+      else if(confirmation == "n" || confirmation == "no")
+        return false;
+      else {
+        std::cout << "Please answer with either `yes` or `no`!" << std::endl;
+      }
+    } while(true);
   }
 }
 
