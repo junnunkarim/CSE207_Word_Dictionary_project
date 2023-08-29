@@ -2,8 +2,6 @@
   Header file for Linked-List.
   It contains structural definitions and
   prototypes for Linked-List.
-
-  Written by : Junnun Mohamed Karim
 */
 
 #ifndef LIST_H

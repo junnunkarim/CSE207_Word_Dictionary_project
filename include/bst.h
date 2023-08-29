@@ -2,9 +2,6 @@
   Header file for Binary Search Tree (bst).
   It contains structural definitions and
   prototypes for bst.
-
-  Written by : Md Murad Khan Limon
-  Date       : 18 August, 2023
 */
 
 #ifndef BST_H

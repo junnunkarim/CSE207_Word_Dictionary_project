@@ -1,4 +1,4 @@
-#include <cstdlib>
+//#include <cstdlib>
 #include <iostream>
 #include <string>
 
@@ -65,6 +65,18 @@ int main() {
 
 //################################################//
 //------------------------------------------------//
+
+/*
+ * Prints the main menu to view the operations
+ *
+ * Parameters
+ * ----------
+ * none
+ *
+ * Returns
+ * -------
+ * none
+ */
 void print_menu() {
   util::clear_screen();
 
@@ -79,6 +91,20 @@ void print_menu() {
   std::cout << std::endl;
 }
 
+/*
+ * Gets user choice of operation and
+ * checks if the choice is correct or not,
+ * after which it returns the choice
+ *
+ * Parameters
+ * ----------
+ * none
+ *
+ * Returns
+ * -------
+ * int
+ *  choice in an integer value
+ */
 int choice() {
   int choice = {};
 
@@ -99,6 +125,36 @@ int choice() {
   return choice;
 }
 
+/*
+ * While searching, if the user input word is not in the BST,
+ * then this function checks if there are any node that contains
+ * the closest word of user input word.
+ * It takes a letter and a index variables to keep track of which
+ * letter of the input word is currently being checked and in
+ * which index is the letter in.
+ *
+ * - for every letter in the user input word
+ *  - pass the root node, letter and the letter index to this function
+ *    - if the letter matches the letter in the correct index of a word in a node
+ *      - return that node as the current node and repeat
+ *        the process for the next letter starting from the current node.
+ *    - if the letter doesn't match
+ *      - return the last node as closest node
+ *
+ * Parameters
+ * ----------
+ * node : bst<word>::Node *
+ *  Current node to keep track of which node is the closest.
+ *  Starts from the root node.
+ * letter : char &
+ *  the character in the word to check
+ * index : int
+ *  the index of the letter in the word
+ *
+ * Returns
+ * -------
+ * bst<word>::Node *
+ */
 ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index) {
   try {
     if (!node) {
@@ -370,4 +426,5 @@ void print_tree() {
   util::wait_for_input();
 }
 //------------------------------------------------//
+
 //################################################//

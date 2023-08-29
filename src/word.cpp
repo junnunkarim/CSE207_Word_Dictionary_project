@@ -1,4 +1,5 @@
 #include "../include/word.h"
+
 #include <iostream>
 #include <string>
 #include <algorithm> // for std::transform
