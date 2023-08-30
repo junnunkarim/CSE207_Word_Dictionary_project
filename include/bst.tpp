@@ -118,8 +118,8 @@ namespace ds {
       }
 
       if(root -> left != nullptr || root -> right != nullptr) {
-        print_helper(root -> left.get(), level + 1, "Left: ");
-        print_helper(root -> right.get(), level + 1, "Right: ");
+        print_helper(root -> left.get(), level + 1, "left: ");
+        print_helper(root -> right.get(), level + 1, "right: ");
       }
     }
   }
@@ -142,7 +142,7 @@ namespace ds {
   template <typename T>
   void bst<T>::print() const {
     if(root != nullptr)
-      print_helper(root.get(), 0, "Root: ");
+      print_helper(root.get(), 0, "    root: ");
     else
       std::cout << "Binary-Search Tree is empty!" << std::endl;
 

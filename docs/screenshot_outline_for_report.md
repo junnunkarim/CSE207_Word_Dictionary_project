@@ -1,0 +1,18 @@
+- program menu
+- add word
+    - add a incorrect word
+    - add a correct word with definition
+- display tree
+- search word
+    - search for a word whose's first letter is not present on any word in the BST
+    - search for a word whose's atleast first letter is present on a word in the BST
+    - search for a word which is available in the BST
+- delete word
+    - delete a word that is available in the BST
+- display tree
+- update word
+    - add a incorrect word with incorrect definition
+    - try to update a word that is not available in the BST
+    - update the incorrect word
+    - show the updated word using search
+- quit
