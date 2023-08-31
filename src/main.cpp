@@ -1,3 +1,8 @@
+/*************************************************
+ * \file main.cpp
+ * \brief Implementation of a Word Dictionary
+ *************************************************/
+
 //#include <cstdlib>
 #include <iostream>
 #include <string>
@@ -7,6 +12,7 @@
 #include "../include/utility.h"
 
 
+// Function declarations
 void print_menu();
 int choice();
 ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index);
@@ -24,10 +30,13 @@ void delete_word();
 void update_word();
 void print_tree();
 
-
+// Global BST to store words
 static ds::bst<word> WORD_TREE;
 
-
+/**
+ * \brief The main function that initializes the Word Dictionary program.
+ * \return The program exit status.
+ */
 int main() {
   util::load_database(&WORD_TREE);
 
@@ -63,19 +72,8 @@ int main() {
   return 0;
 }
 
-//################################################//
-//------------------------------------------------//
-
-/*
- * Prints the main menu to view the operations
- *
- * Parameters
- * ----------
- * none
- *
- * Returns
- * -------
- * none
+/**
+ * \brief Displays the main menu of the Word Dictionary program.
  */
 void print_menu() {
   util::clear_screen();
@@ -91,19 +89,9 @@ void print_menu() {
   std::cout << std::endl;
 }
 
-/*
- * Gets user choice of operation and
- * checks if the choice is correct or not,
- * after which it returns the choice
- *
- * Parameters
- * ----------
- * none
- *
- * Returns
- * -------
- * int
- *  choice in an integer value
+/**
+ * \brief Takes user input for menu choice and validates it.
+ * \return The validated user choice.
  */
 int choice() {
   int choice = {};
@@ -125,35 +113,12 @@ int choice() {
   return choice;
 }
 
-/*
- * While searching, if the user input word is not in the BST,
- * then this function checks if there are any node that contains
- * the closest word of user input word.
- * It takes a letter and a index variables to keep track of which
- * letter of the input word is currently being checked and in
- * which index is the letter in.
- *
- * - for every letter in the user input word
- *  - pass the root node, letter and the letter index to this function
- *    - if the letter matches the letter in the correct index of a word in a node
- *      - return that node as the current node and repeat
- *        the process for the next letter starting from the current node.
- *    - if the letter doesn't match
- *      - return the last node as closest node
- *
- * Parameters
- * ----------
- * node : bst<word>::Node *
- *  Current node to keep track of which node is the closest.
- *  Starts from the root node.
- * letter : char &
- *  the character in the word to check
- * index : int
- *  the index of the letter in the word
- *
- * Returns
- * -------
- * bst<word>::Node *
+/**
+ * \brief Recursively finds the closest node in the BST based on the given letter and index.
+ * \param node Pointer to the current node in the BST.
+ * \param letter The target letter to search for.
+ * \param index The index of the letter in the word.
+ * \return Pointer to the closest node found.
  */
 ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index) {
   try {
@@ -179,6 +144,12 @@ ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char &
   }
 }
 
+/**
+ * \brief Recursively searches and populates a list of suggestions for a given matching substring.
+ * \param subtree Pointer to the current subtree node.
+ * \param suggestion_list Pointer to the list of suggestions.
+ * \param matching_substr The substring to match.
+ */
 void print_suggestions_helper(
   const ds::bst<word>::Node * subtree,
   ds::list<std::string> * suggestion_list,
@@ -201,6 +172,10 @@ void print_suggestions_helper(
   }
 }
 
+/**
+ * \brief Displays suggestions for a word search that did not yield any results.
+ * \param search Pointer to the search term.
+ */
 void print_suggestions(word * search) {
   util::clear_screen();
 
@@ -251,10 +226,11 @@ void print_suggestions(word * search) {
     std::cout << " ]";
   }
 }
-//------------------------------------------------//
-//################################################//
 
-
+/**
+ * \brief Assists in adding a new word to the BST by taking user input for terminology and definition.
+ * \param message Pointer to the message to display.
+ */
 void add_word_helper(std::string * message) {
   std::string terminology = util::input_word(message);
 
@@ -284,9 +260,9 @@ void add_word_helper(std::string * message) {
   }
 }
 
-
-//################################################//
-//------------------------------------------------//
+/**
+ * \brief Adds a new word to the BST with user-provided terminology and definition.
+ */
 void add_word() {
   util::clear_screen();
 
@@ -298,6 +274,9 @@ void add_word() {
   add_word_helper(&message);
 }
 
+/**
+ * \brief Searches for a word in the BST and displays its definition if found; otherwise, suggests similar words.
+ */
 void search_word() {
   util::clear_screen();
 
@@ -332,6 +311,9 @@ void search_word() {
   }
 }
 
+/**
+ * \brief Deletes a word from the BST if it exists.
+ */
 void delete_word() {
   util::clear_screen();
 
@@ -375,6 +357,9 @@ void delete_word() {
   }
 }
 
+/**
+ * \brief Updates a word in the BST by removing and re-adding it with new values.
+ */
 void update_word() {
   util::clear_screen();
 
@@ -415,6 +400,9 @@ void update_word() {
   }
 }
 
+/**
+ * \brief Displays the entire contents of the Word Dictionary BST.
+ */
 void print_tree() {
   util::clear_screen();
 
@@ -425,6 +413,3 @@ void print_tree() {
 
   util::wait_for_input();
 }
-//------------------------------------------------//
-
-//################################################//
