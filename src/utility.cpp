@@ -1,3 +1,8 @@
+/**
+ * @file utility.cpp
+ * @brief Implementation of utility functions.
+ */
+
 #ifndef UTILITY_CPP
 #define UTILITY_CPP
 
@@ -14,6 +19,12 @@
 #include "../include/utility.h"
 
 namespace util {
+  /**
+   * @brief Splits a string into a list of tokens using the specified delimiter.
+   * @param line The input string to be split.
+   * @param delimeter The delimiter character.
+   * @return A list of tokens extracted from the input string.
+   */
   ds::list<std::string> str_split(std::string * line, char delimeter) {
     std::istringstream line_stream(*line);
     std::string token = {};
@@ -26,6 +37,10 @@ namespace util {
     return token_list;
   }
 
+  /**
+   * @brief Loads word data from a file into a binary search tree.
+   * @param WORD_TREE Pointer to the binary search tree to be populated.
+   */
   void load_database(ds::bst<word> * WORD_TREE) {
     std::string filename = "../data/database";
 
@@ -60,6 +75,11 @@ namespace util {
     }
   }
 
+  /**
+   * @brief Recursively stores word data from the binary search tree into a file.
+   * @param node Pointer to the current node in the binary search tree.
+   * @param output_file_ptr Pointer to the output file stream.
+   */
   void store_database_helper(ds::bst<word>::Node * node, std::ofstream * output_file_ptr) {
     if (node == nullptr)
       return;
@@ -71,6 +91,10 @@ namespace util {
 
   }
 
+  /**
+   * @brief Stores word data from the binary search tree into a file.
+   * @param WORD_TREE Pointer to the binary search tree to be stored.
+   */
   void store_database(ds::bst<word> * WORD_TREE) {
     std::string filename = "../data/database";
 
@@ -88,6 +112,10 @@ namespace util {
     }
   }
 
+  /**
+   * @brief Saves changes made to the binary search tree back to the database file.
+   * @param WORD_TREE Pointer to the binary search tree to be saved.
+   */
   void save_changes(ds::bst<word> * WORD_TREE) {
     std::string message = "Do you want to save the changes to the Binary Search Tree (Yes/No): ";
 
@@ -100,12 +128,18 @@ namespace util {
     }
   }
 
+  /**
+   * @brief Clears the input buffer.
+   */
   void clear_input_buffer() {
     // Clear the input buffer
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
 
+  /**
+   * @brief Pauses program execution and waits for user input.
+   */
   void wait_for_input() {
     std::string line = {};
 
@@ -116,6 +150,11 @@ namespace util {
     std::getline(std::cin, line); // wait for Enter key
   }
 
+  /**
+   * @brief Converts a string to lowercase.
+   * @param str Pointer to the input string.
+   * @return The input string converted to lowercase.
+   */
   std::string to_lowercase(const std::string * str) {
     std::string lowercase = *str;
 
@@ -126,6 +165,9 @@ namespace util {
     return lowercase;
   }
 
+  /**
+   * @brief Clears the terminal screen.
+   */
   void clear_screen() {
     #ifdef _WIN32
       system("cls"); // clear the screen on windows
@@ -134,6 +176,11 @@ namespace util {
     #endif
   }
 
+  /**
+   * @brief Checks if a string consists of alphabetic characters only.
+   * @param word Pointer to the input string.
+   * @return True if the input string contains only alphabetic characters, false otherwise.
+   */
   bool word_is_alpha(const std::string * word) {
     for (char c : (*word)) {
       if (!std::isalpha(c)) {
@@ -143,6 +190,11 @@ namespace util {
     return true; // All characters are alphabetic
   }
 
+  /**
+   * @brief Takes user input for a word, ensuring it only contains alphabetic characters.
+   * @param message Pointer to the input prompt message (optional).
+   * @return A valid lowercase word entered by the user.
+   */
   std::string input_word(std::string * message) {
     std::string str = {};
 
@@ -174,6 +226,10 @@ namespace util {
     return str;
   }
 
+  /**
+   * @brief Takes user input for a sentence.
+   * @return The sentence entered by the user.
+   */
   std::string input_sentence() {
     std::string sentence = {};
     std::getline(std::cin, sentence);
@@ -181,6 +237,11 @@ namespace util {
     return sentence;
   }
 
+  /**
+   * @brief Prompts the user for confirmation with a given message.
+   * @param message Pointer to the confirmation message.
+   * @return True if the user confirms (yes), false if they decline (no).
+   */
   bool confirmation_check(std::string * message) {
     std::string confirmation;
 
