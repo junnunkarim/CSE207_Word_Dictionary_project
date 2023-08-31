@@ -1,3 +1,8 @@
+/**
+ * @file bst.tpp
+ * @brief Implementation of a Binary Search Tree (BST) template class.
+ */
+
 #ifndef BST_TPP
 #define BST_TPP
 
@@ -9,19 +14,43 @@
 #include <limits> // for clearing input buffer
 
 namespace ds {
+
+  /**
+   * @brief Default constructor for Node.
+   * Initializes a new Node with default values.
+   */
   template <typename T>
   bst<T>::Node::Node() : data({}), left(nullptr), right(nullptr) {}
 
+  /**
+   * @brief Constructor for Node with initial value.
+   * Initializes a new Node with the given value.
+   * @param value The initial value to set.
+   */
   template <typename T>
   bst<T>::Node::Node(const T & value) : data(value), left(nullptr), right(nullptr) {}
 
+  /**
+   * @brief Default constructor for Binary Search Tree.
+   * Initializes a new BST with default values.
+   */
   template <typename T>
   bst<T>::bst() : count(0), root(nullptr) {}
 
+  /**
+   * @brief Destructor for Binary Search Tree.
+   * Cleans up memory used by the BST.
+   */
   template <typename T>
   bst<T>::~bst() {}
 
-
+  /**
+   * @brief Helper function to insert a value into the Binary Search Tree.
+   * Inserts the given value into the tree.
+   * @param node Reference to the current node.
+   * @param value The value to insert.
+   * @return True if the insertion was successful, false otherwise.
+   */
   template <typename T>
   bool bst<T>::insert_helper(std::unique_ptr<typename bst<T>::Node> & node, const T & value) {
     try {
@@ -46,6 +75,13 @@ namespace ds {
     }
   }
 
+  /**
+   * @brief Helper function to search for a value in the Binary Search Tree.
+   * Recursively searches for the given value in the tree.
+   * @param node Pointer to the current node.
+   * @param key The value to search for.
+   * @return Pointer to the node containing the value, or nullptr if not found.
+   */
   template <typename T>
   typename bst<T>::Node * bst<T>::search_helper(const std::unique_ptr<typename bst<T>::Node> & node, const T & key) const {
     try {
@@ -69,6 +105,13 @@ namespace ds {
     }
   }
 
+  /**
+   * @brief Helper function to remove a value from the Binary Search Tree.
+   * Recursively removes the given value from the tree.
+   * @param node Reference to the current node.
+   * @param value The value to remove.
+   * @return True if the removal was successful, false otherwise.
+   */
   template <typename T>
   bool bst<T>::remove_helper(std::unique_ptr<typename bst<T>::Node> & node, const T & value) {
     try {
@@ -106,6 +149,13 @@ namespace ds {
     }
   }
 
+  /**
+   * @brief Helper function to print the Binary Search Tree.
+   * Recursively prints the structure of the tree.
+   * @param root Pointer to the root of the tree.
+   * @param level Current level in the tree traversal.
+   * @param prefix Prefix to display for each node.
+   */
   template <typename T>
   void bst<T>::print_helper(bst<T>::Node * root, size_t level, std::string prefix) const {
     if(root != nullptr) {
@@ -118,12 +168,18 @@ namespace ds {
       }
 
       if(root -> left != nullptr || root -> right != nullptr) {
-        print_helper(root -> left.get(), level + 1, "left: ");
-        print_helper(root -> right.get(), level + 1, "right: ");
+        print_helper(root -> left.get(), level + 1, "Left: ");
+        print_helper(root -> right.get(), level + 1, "Right: ");
       }
     }
   }
 
+  /**
+   * @brief Insert a value into the Binary Search Tree.
+   * Inserts the given value into the tree.
+   * @param value The value to insert.
+   * @return True if the insertion was successful, false otherwise.
+   */
   template <typename T>
   bool bst<T>::insert(const T & value) {
     try {
@@ -139,10 +195,14 @@ namespace ds {
     }
   }
 
+  /**
+   * @brief Print the Binary Search Tree.
+   * Prints the structure of the tree.
+   */
   template <typename T>
   void bst<T>::print() const {
     if(root != nullptr)
-      print_helper(root.get(), 0, "    root: ");
+      print_helper(root.get(), 0, "Root: ");
     else
       std::cout << "Binary-Search Tree is empty!" << std::endl;
 
@@ -172,6 +232,12 @@ namespace ds {
     }
   }
 
+  /**
+   * @brief Remove a value from the Binary Search Tree.
+   * Removes the given value from the tree.
+   * @param value The value to remove.
+   * @return True if the removal was successful, false otherwise.
+   */
   template <typename T>
   bool bst<T>::remove(const T & value) {
     try {
@@ -187,7 +253,10 @@ namespace ds {
     }
   }
 
-
+  /**
+   * @brief Check if the Binary Search Tree is empty.
+   * @return True if the tree is empty, false otherwise.
+   */
   template <typename T>
   bool bst<T>::is_empty() const {
     return count == 0;
@@ -207,6 +276,10 @@ namespace ds {
     }
   }
 
+  /**
+   * @brief Check if the Binary Search Tree is a full binary tree.
+   * @return True if the tree is a full binary tree, false otherwise.
+   */
   template <typename T>
   bool bst<T>::is_full() const {
     try {
@@ -217,11 +290,20 @@ namespace ds {
     }
   }
 
+  /**
+   * @brief Get the count of nodes in the Binary Search Tree.
+   * @return The number of nodes in the tree.
+   */
   template <typename T>
   size_t bst<T>::get_count() const {
     return count;
   }
 
+
+  /**
+   * @brief Get a pointer to the root node of the Binary Search Tree.
+   * @return Pointer to the root node, or nullptr if the tree is empty.
+   */
   template <typename T>
   typename bst<T>::Node * bst<T>::get_root() const {
     return root.get();

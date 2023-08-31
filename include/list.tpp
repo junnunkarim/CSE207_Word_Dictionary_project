@@ -1,3 +1,7 @@
+/**
+ * @file list.tpp
+ * @brief Implementation of a singly linked list template class.
+ */
 #ifndef LIST_TPP
 #define LIST_TPP
 
@@ -7,15 +11,35 @@
 #include <stdexcept>
 
 namespace ds {
+
+
+  /**
+   * @brief Default constructor for the Node class.
+   * Initializes a new Node with default values.
+   */
   template <typename T>
   list<T>::node::node() : data({}), next(nullptr) {}
 
+  /**
+   * @brief Constructor for the Node class with initial value.
+   * Initializes a new Node with the given value.
+   * @param data The initial value to set.
+   */
   template <typename T>
   list<T>::node::node(const T & data) : data(data), next(nullptr) {}
 
+  /**
+   * @brief Default constructor for the singly linked list.
+   * Initializes a new list with default values.
+   */
   template <typename T>
   list<T>::list() : head(nullptr), size(0) {}
 
+
+  /**
+   * @brief Destructor for the singly linked list.
+   * Cleans up memory used by the list.
+   */
   template <typename T>
   list<T>::~list() {
     node * current = head;
@@ -31,6 +55,7 @@ namespace ds {
     size = 0;
   }
 
+  
   template <typename T>
   bool list<T>::insert_front(const T & data) {
     try {
