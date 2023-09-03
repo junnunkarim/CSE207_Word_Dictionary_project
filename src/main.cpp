@@ -1,6 +1,6 @@
 /*************************************************
- * \file main.cpp
- * \brief Implementation of a Word Dictionary
+ * @file main.cpp
+ * @brief Implementation of a Word Dictionary
  *************************************************/
 
 //#include <cstdlib>
@@ -34,8 +34,8 @@ void print_tree();
 static ds::bst<word> WORD_TREE;
 
 /**
- * \brief The main function that initializes the Word Dictionary program.
- * \return The program exit status.
+ * @brief The main function that initializes the Word Dictionary program.
+ * @return The program exit status.
  */
 int main() {
   util::load_database(&WORD_TREE);
@@ -73,7 +73,7 @@ int main() {
 }
 
 /**
- * \brief Displays the main menu of the Word Dictionary program.
+ * @brief Displays the main menu of the Word Dictionary program.
  */
 void print_menu() {
   util::clear_screen();
@@ -90,8 +90,8 @@ void print_menu() {
 }
 
 /**
- * \brief Takes user input for menu choice and validates it.
- * \return The validated user choice.
+ * @brief Takes user input for menu choice and validates it.
+ * @return The validated user choice.
  */
 int choice() {
   int choice = {};
@@ -114,11 +114,11 @@ int choice() {
 }
 
 /**
- * \brief Recursively finds the closest node in the BST based on the given letter and index.
- * \param node Pointer to the current node in the BST.
- * \param letter The target letter to search for.
- * \param index The index of the letter in the word.
- * \return Pointer to the closest node found.
+ * @brief Recursively finds the closest node in the BST based on the given letter and index.
+ * @param node Pointer to the current node in the BST.
+ * @param letter The target letter to search for.
+ * @param index The index of the letter in the word.
+ * @return Pointer to the closest node found.
  */
 ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char & letter, const int index) {
   try {
@@ -145,10 +145,10 @@ ds::bst<word>::Node * find_closest_node(ds::bst<word>::Node * node, const char &
 }
 
 /**
- * \brief Recursively searches and populates a list of suggestions for a given matching substring.
- * \param subtree Pointer to the current subtree node.
- * \param suggestion_list Pointer to the list of suggestions.
- * \param matching_substr The substring to match.
+ * @brief Recursively searches and populates a list of suggestions for a given matching substring.
+ * @param subtree Pointer to the current subtree node.
+ * @param suggestion_list Pointer to the list of suggestions.
+ * @param matching_substr The substring to match.
  */
 void print_suggestions_helper(
   const ds::bst<word>::Node * subtree,
@@ -173,8 +173,8 @@ void print_suggestions_helper(
 }
 
 /**
- * \brief Displays suggestions for a word search that did not yield any results.
- * \param search Pointer to the search term.
+ * @brief Displays suggestions for a word search that did not yield any results.
+ * @param search Pointer to the search term.
  */
 void print_suggestions(word * search) {
   util::clear_screen();
@@ -228,8 +228,8 @@ void print_suggestions(word * search) {
 }
 
 /**
- * \brief Assists in adding a new word to the BST by taking user input for terminology and definition.
- * \param message Pointer to the message to display.
+ * @brief Assists in adding a new word to the BST by taking user input for terminology and definition.
+ * @param message Pointer to the message to display.
  */
 void add_word_helper(std::string * message) {
   std::string terminology = util::input_word(message);
@@ -261,7 +261,7 @@ void add_word_helper(std::string * message) {
 }
 
 /**
- * \brief Adds a new word to the BST with user-provided terminology and definition.
+ * @brief Adds a new word to the BST with user-provided terminology and definition.
  */
 void add_word() {
   util::clear_screen();
@@ -275,7 +275,7 @@ void add_word() {
 }
 
 /**
- * \brief Searches for a word in the BST and displays its definition if found; otherwise, suggests similar words.
+ * @brief Searches for a word in the BST and displays its definition if found; otherwise, suggests similar words.
  */
 void search_word() {
   util::clear_screen();
@@ -312,7 +312,7 @@ void search_word() {
 }
 
 /**
- * \brief Deletes a word from the BST if it exists.
+ * @brief Deletes a word from the BST if it exists.
  */
 void delete_word() {
   util::clear_screen();
@@ -358,7 +358,7 @@ void delete_word() {
 }
 
 /**
- * \brief Updates a word in the BST by removing and re-adding it with new values.
+ * @brief Updates a word in the BST by removing and re-adding it with new values.
  */
 void update_word() {
   util::clear_screen();
@@ -401,7 +401,7 @@ void update_word() {
 }
 
 /**
- * \brief Displays the entire contents of the Word Dictionary BST.
+ * @brief Displays the entire contents of the Word Dictionary BST.
  */
 void print_tree() {
   util::clear_screen();
