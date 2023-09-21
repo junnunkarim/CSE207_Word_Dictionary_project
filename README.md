@@ -5,6 +5,31 @@ A small project about implementing a word dictionary with binary search tree usi
 - Course: CSE207 Data Structure
 - Coruse Instructor: [Dr. Mohammad Manzurul Islam](https://www.linkedin.com/in/manzurul-islam-phd-0a1165b)
 
+# Directory Structure
+```
+├── CMakeLists.txt
+├── README.md
+├── data
+│   └── database
+├── docs
+├── include
+│   ├── bst.h
+│   ├── bst.tpp
+│   ├── list.h
+│   ├── list.tpp
+│   ├── utility.h
+│   └── word.h
+├── outline.md
+├── src
+│   ├── main.cpp
+│   ├── utility.cpp
+│   └── word.cpp
+└── tests
+    ├── test_bst.cpp
+    ├── test_list.cpp
+    └── test_word.cpp
+```
+
 # ScreenShots
 ## main menu
 ![img](/docs/1.png)
