@@ -1,6 +1,7 @@
-# EWU CSE207 Project
-A small project about implementing a word dictionary with binary search tree usinc C++.
+# CSE207 Project - Word Dictionary
+A small project about implementing a word dictionary with binary search tree using C++.
 
+- University: East West University
 - Course: CSE207 Data Structure
 - Coruse Instructor: [Dr. Mohammad Manzurul Islam](https://www.linkedin.com/in/manzurul-islam-phd-0a1165b)
 
@@ -15,5 +16,5 @@ A small project about implementing a word dictionary with binary search tree usi
 
 # Credit
 - [Junnun Mohamed Karim](https://www.github.com/junnunkarim)
--  [Md Murad Khan Limon](https://www.github.com/muradkhanlimon)
--   [Md. Yousuf Hozaifa](https://www.github.com/Yousuf-Hozaifa)
+- [Md Murad Khan Limon](https://www.github.com/muradkhanlimon)
+- [Md. Yousuf Hozaifa](https://www.github.com/Yousuf-Hozaifa)
