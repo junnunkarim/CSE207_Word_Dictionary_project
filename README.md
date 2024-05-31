@@ -3,7 +3,6 @@ A small project about implementing a word dictionary with binary search tree usi
 
 - University: East West University
 - Course: CSE207 Data Structure
-- Coruse Instructor: [Dr. Mohammad Manzurul Islam](https://www.linkedin.com/in/manzurul-islam-phd-0a1165b)
 
 # Directory Structure
 ```
@@ -31,6 +30,9 @@ A small project about implementing a word dictionary with binary search tree usi
 ```
 
 # ScreenShots
+<details>
+<summary><b>click here</b></summary>
+
 ## main menu
 ![img](/docs/1.png)
 ## add word
@@ -38,6 +40,8 @@ A small project about implementing a word dictionary with binary search tree usi
 ## search word
 ![img](/docs/4_2.png)
 ![img](/docs/4_3.png)
+
+</details>
 
 # Credit
 - [Junnun Mohamed Karim](https://www.github.com/junnunkarim)
