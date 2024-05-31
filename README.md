@@ -43,7 +43,7 @@ A small project about implementing a word dictionary with binary search tree usi
 
 </details>
 
-# Credit
+# Contributors
 - [Junnun Mohamed Karim](https://www.github.com/junnunkarim)
 - [Md Murad Khan Limon](https://www.github.com/muradkhanlimon)
 - [Md. Yousuf Hozaifa](https://www.github.com/Yousuf-Hozaifa)
